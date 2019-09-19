@@ -1,9 +1,7 @@
 # This implements a ruby version of python's Crypto.Cipher.XOR
-def python_xor(key, string)
-  result=""
-  codepoints = string.each_codepoint.to_a
-  codepoints.each_index do |i|
-    result += (codepoints[i] ^ key[i % key.size].ord).chr
-  end
-  result
+# Implementation ~= to ActionController::RequestForgeryProtection.xor_byte_strings
+def python_xor(key, str)
+  text_bytes = str.bytes
+  text_bytes.each_index { |i| text_bytes[i] ^= key[i % key.size].ord }
+  text_bytes.pack("C*")
 end
