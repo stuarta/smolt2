@@ -19,6 +19,10 @@ class Legacy::ClientController < ApplicationController
     # Log the original data to BatchQueue.
     # set added=true if immediately processed, else false
     lq = Legacy::BatchQueue.create(hw_uuid: params[:uuid], added: false, data: params[:host])
+    hostp = Processor::HostProcessor.new
+    host = hostp.process_host(params[:host])
+    lq.added = true
+    lq.save
   end
 
   def delete
