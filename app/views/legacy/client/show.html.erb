@@ -1,0 +1,7 @@
+<% if @host.nil? %>
+<%= "No matching host found" %>
+<% else %>
+<%=
+"UUID: " + @host["uuid"] + "\npub_uuid: " + @host["pub_uuid"]
+%>
+<% end %>

@@ -1,0 +1,2 @@
+module Legacy::ClientHelper
+end
