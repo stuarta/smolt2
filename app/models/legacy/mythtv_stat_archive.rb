@@ -1,4 +1,4 @@
 class Legacy::MythtvStatArchive < ActiveRecord::Base
   self.table_name = 'myth_stat_archive'
-  self.primary_key = NULL
+  self.primary_key = :null
 end
