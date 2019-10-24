@@ -7,7 +7,8 @@ class Processor::HostProcessor
       # Create Host entry
       h = Legacy::Host.find_by_uuid(host["uuid"])
       if h.nil?
-        pub_uuid = 'pub_' + SecureRandom.uuid
+        mapper = Core::HostPubMapping.new
+        pub_uuid = mapper.get_pub_uuid(host["uuid"])
         h = Legacy::Host.new(
           uuid:             host["uuid"],
           pub_uuid:         pub_uuid,
@@ -15,6 +16,7 @@ class Processor::HostProcessor
           rating:           0,
           selinux_enabled:  host["selinux_enabled"]
         )
+        Core::HostPubMapping.where(:uuid => host[:uuid]).destroy_all
       end
       h.update(
         os:               host["os"],

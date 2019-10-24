@@ -6,15 +6,8 @@ class Legacy::ClientController < ApplicationController
     validator = Legacy::Token.new
     return head(:bad_request) unless validator.valid?(params[:uuid], params[:token])
 
-    # Find existing pub_uuid of a system
-    host = Legacy::Host.find_by_uuid(params[:uuid])
-    if host.nil?
-      Rails.logger.debug "Failed to find existing host"
-      # for testing generate a random pub_uuid
-      @pub_uuid = 'pub_' + SecureRandom.uuid
-    else
-      @pub_uuid = host.pub_uuid
-    end
+    mapper = Core::HostPubMapping.new
+    @pub_uuid = mapper.get_pub_uuid(params[:uuid])
 
     # Log the original data to BatchQueue.
     # set added=true if immediately processed, else false
@@ -53,11 +46,8 @@ class Legacy::ClientController < ApplicationController
   end
 
   def regenerate_pub_uuid
-    # generate new pub uuid
-    pub_uuid = 'pub_' + SecureRandom.uuid
-    Rails.logger.debug "Generated new pub_uuid (#{pub_uuid}) for uuid (#{params[:uuid]})"
-    # TODO: Need to save the new pub_uuid.
-    # Legacy code updates 1 record in the host table
+    mapper = Core::HostPubMapping.new
+    pub_uuid = mapper.create_pub_uuid(params[:uuid])
     render json: { "pub_uuid": pub_uuid }
   end
 end
