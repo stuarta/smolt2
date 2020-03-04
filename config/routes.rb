@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'root#index'
   scope '/tokens' do
     get 'token_json',       to: 'legacy/token#token_json'
     get 'admin_token_json', to: 'legacy/token#admin_token_json'
