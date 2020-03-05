@@ -15,7 +15,7 @@ class Core::HostPubMapping < ApplicationRecord
       # Look for an existing mapping of host -> pub_uuid
       mapping = Core::HostPubMapping.find_by_uuid(uuid)
       if mapping.nil?
-        new_pub_uuid = create_pub_uuid
+        new_pub_uuid = create_pub_uuid(uuid)
       else
         Rails.logger.debug "Found an existing mapping #{mapping["uuid"]} to #{mapping["pub_uuid"]}"
         pub_uuid = mapping["pub_uuid"]
