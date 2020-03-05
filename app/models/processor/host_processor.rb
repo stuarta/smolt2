@@ -16,7 +16,7 @@ class Processor::HostProcessor
           rating:           0,
           selinux_enabled:  host["selinux_enabled"]
         )
-        Core::HostPubMapping.where(:uuid => host[:uuid]).destroy_all
+        Core::HostPubMapping.where(:uuid => host["uuid"]).destroy_all
       end
       h.update(
         os:               host["os"],
