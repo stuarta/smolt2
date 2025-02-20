@@ -34,3 +34,6 @@
 # Ignore quilt patches
 /.pc
 /patches
+
+# VSCode workspace
+*workspace
