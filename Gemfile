@@ -21,6 +21,9 @@ gem "websocket-extensions", ">= 0.1.5"
 # https://github.com/advisories/GHSA-vr8q-g5c7-m54m
 gem "nokogiri", ">= 1.11.0.rc4"
 
+# something needs this
+gem "mutex_m"
+
 # Use CoffeeScript for .coffee assets and views
 #gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
