@@ -1,11 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  vendor_id: 32902
+  device_id: 9294
+  subsys_vendor_id: 5208
+  subsys_device_id: 34962
+#  bus: "PCI"
+#  driver: "None"
+#  type: "PCI/PCI"
+  description: "82801 PCI Bridge"
+
+two:
+  vendor_id: 32902
+  device_id: 35842
+  subsys_vendor_id: 5208
+  subsys_device_id: 45061
+#  bus: "PCI"
+#  driver: "None"
+#  type: "STORAGE"
+  description: "8 Series/C220 Series Chipset Family 6-port SATA Controller 1 [AHCI mode]"
