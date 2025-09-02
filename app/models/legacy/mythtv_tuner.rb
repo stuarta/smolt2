@@ -1,3 +1,3 @@
-class Legacy::MythtvTuner < ActiveRecord::Base
+class Legacy::MythtvTuner < LegacyRecord
   belongs_to :mythtv_host, foreign_key: "myth_uuid"
 end

@@ -10,25 +10,50 @@ default: &default
   pool: 5
 
 development:
-  <<: *default
-  database: smoon2
-  username: root
-  password:
-  socket: /var/lib/mysql/mysql.sock
+  primary:
+    <<: *default
+    database: smolt2_dev
+    username: root
+    password:
+    socket: /var/lib/mysql/mysql.sock
+  legacy:
+    <<: *default
+    database: smoon2
+    username: root
+    password:
+    socket: /var/lib/mysql/mysql.sock
+    database_tasks: false
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: smoon2_test
-  username: root
-  password:
-  socket: /var/lib/mysql/mysql.sock
+  primary:
+    <<: *default
+    database: smolt2_test
+    username: root
+    password:
+    socket: /var/lib/mysql/mysql.sock
+  legacy:
+    <<: *default
+    database: smoon2
+    username: root
+    password:
+    socket: /var/lib/mysql/mysql.sock
+    database_tasks: false
 
 production:
-  <<: *default
-  database: smoon2
-  username: root
-  password:
-  socket: /var/lib/mysql/mysql.sock
+  primary:
+    <<: *default
+    database: smolt2
+    username: root
+    password:
+    socket: /var/lib/mysql/mysql.sock
+  legacy:
+    <<: *default
+    database: smoon2
+    username: root
+    password:
+    socket: /var/lib/mysql/mysql.sock
+    database_tasks: false

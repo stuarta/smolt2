@@ -1,4 +1,4 @@
-class Legacy::Host < ActiveRecord::Base
+class Legacy::Host < LegacyRecord
   self.table_name = 'host'
 
   has_many :file_system, dependent: :destroy

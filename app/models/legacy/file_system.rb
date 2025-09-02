@@ -1,3 +1,3 @@
-class Legacy::FileSystem < ActiveRecord::Base
+class Legacy::FileSystem < LegacyRecord
   belongs_to :host
 end
