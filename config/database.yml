@@ -19,7 +19,7 @@ development:
   legacy:
     <<: *default
     database: smoon2
-    username: root
+    username: smoon2_ro
     password:
     socket: /var/lib/mysql/mysql.sock
     database_tasks: false
@@ -38,7 +38,7 @@ test:
   legacy:
     <<: *default
     database: smoon2
-    username: root
+    username: smoon2_ro
     password:
     socket: /var/lib/mysql/mysql.sock
     database_tasks: false
@@ -53,7 +53,7 @@ production:
   legacy:
     <<: *default
     database: smoon2
-    username: root
+    username: smoon2_ro
     password:
     socket: /var/lib/mysql/mysql.sock
     database_tasks: false
