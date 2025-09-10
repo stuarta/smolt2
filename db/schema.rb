@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_08_210004) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_10_065951) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -49,6 +49,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_08_210004) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["uuid", "pub_uuid"], name: "idx_host_pub", unique: true
+  end
+
+  create_table "core_operating_systems", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.text "os"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "core_platforms", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.text "platform"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "core_submissions", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
