@@ -1,5 +1,5 @@
 module Core
   def self.table_name_prefix
-    'core_'
+    "core_"
   end
 end

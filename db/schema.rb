@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_29_223509) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_08_210004) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
     t.string "hw_uuid", null: false
     t.text "data"
+  end
+
+  create_table "core_cpus", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.integer "cpu_family"
+    t.integer "cpu_stepping"
+    t.integer "cpu_model_num"
+    t.text "cpu_vendor"
+    t.text "cpu_model"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cpu_family", "cpu_stepping", "cpu_model_num"], name: "idx_on_cpu_family_cpu_stepping_cpu_model_num_bac05741b8"
   end
 
   create_table "core_devices", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
