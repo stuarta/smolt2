@@ -13,7 +13,7 @@ class Processor::DeviceProcessor
                                           subsys_device_id: device['subsys_device_id'],
                                           core_device_bus_id: device_bus.id,
                                           core_device_class_id: device_class.id)
-    rescue ActiveRecord::RecordNotUnique => e
+    rescue ActiveRecord::RecordNotUnique
       retry
     end
     d.update(

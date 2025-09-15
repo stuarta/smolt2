@@ -3,7 +3,7 @@ class Core::HostPubMapping < ApplicationRecord
     # generate new pub uuid
     pub_uuid = 'pub_' + SecureRandom.uuid
     Rails.logger.debug "Generated new pub_uuid (#{pub_uuid}) for uuid (#{uuid})"
-    mapping = Core::HostPubMapping.create(uuid: uuid, pub_uuid: pub_uuid)
+    Core::HostPubMapping.create(uuid: uuid, pub_uuid: pub_uuid)
     # Legacy code updates 1 record in the host table, but we save to new table
     pub_uuid
   end
