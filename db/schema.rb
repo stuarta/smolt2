@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_15_183437) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_15_195653) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -18,7 +18,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_183437) do
     t.text "data"
   end
 
-  create_table "core_cpus", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "core_cpus", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "cpu_family"
     t.integer "cpu_stepping"
     t.integer "cpu_model_num"
@@ -41,7 +41,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_183437) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "core_devices", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "core_devices", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "vendor_id", null: false
     t.integer "device_id", null: false
     t.integer "subsys_vendor_id"
@@ -52,10 +52,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_183437) do
     t.string "device_driver", default: "Unknown"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.bigint "core_device_bus_id", null: false
+    t.bigint "core_device_class_id", null: false
+    t.index ["core_device_bus_id"], name: "index_core_devices_on_core_device_bus_id"
+    t.index ["core_device_class_id"], name: "index_core_devices_on_core_device_class_id"
     t.index ["vendor_id", "device_id", "subsys_vendor_id", "subsys_device_id"], name: "idx_devices", unique: true
   end
 
-  create_table "core_host_pub_mappings", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "core_host_pub_mappings", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "uuid", null: false
     t.string "pub_uuid", null: false
     t.datetime "created_at", precision: nil, null: false
@@ -63,19 +67,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_183437) do
     t.index ["uuid", "pub_uuid"], name: "idx_host_pub", unique: true
   end
 
-  create_table "core_operating_systems", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "core_operating_systems", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.text "os"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "core_platforms", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "core_platforms", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.text "platform"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "core_submissions", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "core_submissions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.datetime "arrival", precision: nil, default: -> { "current_timestamp()" }
     t.boolean "added", default: false
     t.string "hw_uuid", null: false
@@ -138,5 +142,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_183437) do
     t.index ["uuid"], name: "index_host_on_uuid", unique: true, using: :hash
   end
 
+  add_foreign_key "core_devices", "core_device_buses"
+  add_foreign_key "core_devices", "core_device_classes"
   add_foreign_key "file_systems", "host", column: "id"
 end
