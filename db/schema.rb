@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_17_224016) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_17_225000) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -82,6 +82,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_224016) do
     t.bigint "f_fssize"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "core_host_id", null: false
+    t.index ["core_host_id"], name: "index_core_filesystems_on_core_host_id"
   end
 
   create_table "core_formfactors", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -114,6 +116,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_224016) do
     t.string "selinux_enforce"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "core_host_pub_mapping_id", null: false
+    t.bigint "core_platform_id", null: false
+    t.bigint "core_operating_system_id", null: false
+    t.bigint "core_vendor_id", null: false
+    t.bigint "core_cpu_id", null: false
+    t.bigint "core_kernel_version_id", null: false
+    t.bigint "core_formfactor_id", null: false
+    t.index ["core_cpu_id"], name: "index_core_hosts_on_core_cpu_id"
+    t.index ["core_formfactor_id"], name: "index_core_hosts_on_core_formfactor_id"
+    t.index ["core_host_pub_mapping_id"], name: "index_core_hosts_on_core_host_pub_mapping_id"
+    t.index ["core_kernel_version_id"], name: "index_core_hosts_on_core_kernel_version_id"
+    t.index ["core_operating_system_id"], name: "index_core_hosts_on_core_operating_system_id"
+    t.index ["core_platform_id"], name: "index_core_hosts_on_core_platform_id"
+    t.index ["core_vendor_id"], name: "index_core_hosts_on_core_vendor_id"
   end
 
   create_table "core_kernel_versions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -201,5 +217,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_224016) do
   add_foreign_key "core_device_links", "core_hosts"
   add_foreign_key "core_devices", "core_device_buses"
   add_foreign_key "core_devices", "core_device_classes"
+  add_foreign_key "core_filesystems", "core_hosts"
+  add_foreign_key "core_hosts", "core_cpus"
+  add_foreign_key "core_hosts", "core_formfactors"
+  add_foreign_key "core_hosts", "core_host_pub_mappings"
+  add_foreign_key "core_hosts", "core_kernel_versions"
+  add_foreign_key "core_hosts", "core_operating_systems"
+  add_foreign_key "core_hosts", "core_platforms"
+  add_foreign_key "core_hosts", "core_vendors"
   add_foreign_key "file_systems", "host", column: "id"
 end

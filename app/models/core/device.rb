@@ -1,4 +1,4 @@
 class Core::Device < ApplicationRecord
-  belongs_to :core_device_bus,    class_name: "Core::DeviceBus"
-  belongs_to :core_device_class,  class_name: "Core::DeviceClass"
+  has_many :core_device_links
+  has_many :core_hosts, through: :device_links
 end

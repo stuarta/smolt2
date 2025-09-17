@@ -1,4 +1,5 @@
 class Core::HostPubMapping < ApplicationRecord
+  has_many :hosts
   def create_pub_uuid(uuid)
     # generate new pub uuid
     pub_uuid = 'pub_' + SecureRandom.uuid
