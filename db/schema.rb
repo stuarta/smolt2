@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_17_213206) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_17_215723) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -87,6 +87,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_213206) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["uuid", "pub_uuid"], name: "idx_host_pub", unique: true
+  end
+
+  create_table "core_hosts", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "platform"
+    t.string "vendor"
+    t.string "system"
+    t.integer "bogomips"
+    t.integer "system_memory"
+    t.integer "system_swap"
+    t.integer "num_cpus"
+    t.integer "cpu_speed"
+    t.string "language"
+    t.string "default_runlevel"
+    t.integer "selinux_enabled"
+    t.string "selinux_policy"
+    t.string "selinux_enforce"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "core_kernel_versions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
