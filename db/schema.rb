@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_17_215723) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_17_224016) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_215723) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "core_device_links", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.bigint "core_device_id", null: false
+    t.bigint "core_host_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["core_device_id"], name: "index_core_device_links_on_core_device_id"
+    t.index ["core_host_id"], name: "index_core_device_links_on_core_host_id"
   end
 
   create_table "core_devices", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -188,6 +197,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_215723) do
     t.index ["uuid"], name: "index_host_on_uuid", unique: true, using: :hash
   end
 
+  add_foreign_key "core_device_links", "core_devices"
+  add_foreign_key "core_device_links", "core_hosts"
   add_foreign_key "core_devices", "core_device_buses"
   add_foreign_key "core_devices", "core_device_classes"
   add_foreign_key "file_systems", "host", column: "id"
