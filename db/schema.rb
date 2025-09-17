@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_15_195653) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_17_211212) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -57,6 +57,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_15_195653) do
     t.index ["core_device_bus_id"], name: "index_core_devices_on_core_device_bus_id"
     t.index ["core_device_class_id"], name: "index_core_devices_on_core_device_class_id"
     t.index ["vendor_id", "device_id", "subsys_vendor_id", "subsys_device_id"], name: "idx_devices", unique: true
+  end
+
+  create_table "core_filesystems", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "mnt_pnt"
+    t.string "fs_type"
+    t.bigint "f_favail"
+    t.bigint "f_bsize"
+    t.bigint "f_frsize"
+    t.bigint "f_blocks"
+    t.bigint "f_bfree"
+    t.bigint "f_bavail"
+    t.bigint "f_files"
+    t.bigint "f_ffree"
+    t.bigint "f_fssize"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "core_host_pub_mappings", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|

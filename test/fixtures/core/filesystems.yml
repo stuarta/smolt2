@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mnt_pnt: MyString
+  fs_type: MyString
+  f_favail: 
+  f_bsize: 
+  f_frsize: 
+  f_blocks: 
+  f_bfree: 
+  f_bavail: 
+  f_files: 
+  f_ffree: 
+  f_fssize: 
+
+two:
+  mnt_pnt: MyString
+  fs_type: MyString
+  f_favail: 
+  f_bsize: 
+  f_frsize: 
+  f_blocks: 
+  f_bfree: 
+  f_bavail: 
+  f_files: 
+  f_ffree: 
+  f_fssize: 
