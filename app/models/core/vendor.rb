@@ -1,3 +1,3 @@
 class Core::Vendor < ApplicationRecord
-  has_many :hosts
+  has_many :core_hosts
 end
