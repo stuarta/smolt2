@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_17_225000) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_23_225000) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -42,12 +42,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_225000) do
   end
 
   create_table "core_device_links", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
-    t.bigint "core_device_id", null: false
-    t.bigint "core_host_id", null: false
+    t.bigint "device_id", null: false
+    t.bigint "host_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["core_device_id"], name: "index_core_device_links_on_core_device_id"
-    t.index ["core_host_id"], name: "index_core_device_links_on_core_host_id"
+    t.index ["device_id"], name: "index_core_device_links_on_device_id"
+    t.index ["host_id"], name: "index_core_device_links_on_host_id"
   end
 
   create_table "core_devices", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -82,8 +82,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_225000) do
     t.bigint "f_fssize"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "core_host_id", null: false
-    t.index ["core_host_id"], name: "index_core_filesystems_on_core_host_id"
+    t.bigint "host_id", null: false
+    t.index ["host_id"], name: "index_core_filesystems_on_host_id"
   end
 
   create_table "core_formfactors", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -101,39 +101,45 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_225000) do
   end
 
   create_table "core_hosts", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
-    t.string "platform"
-    t.string "vendor"
     t.string "system"
     t.integer "bogomips"
     t.integer "system_memory"
     t.integer "system_swap"
     t.integer "num_cpus"
     t.integer "cpu_speed"
-    t.string "language"
-    t.string "default_runlevel"
     t.integer "selinux_enabled"
     t.string "selinux_policy"
     t.string "selinux_enforce"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "core_host_pub_mapping_id", null: false
-    t.bigint "core_platform_id", null: false
-    t.bigint "core_operating_system_id", null: false
-    t.bigint "core_vendor_id", null: false
-    t.bigint "core_cpu_id", null: false
-    t.bigint "core_kernel_version_id", null: false
-    t.bigint "core_formfactor_id", null: false
-    t.index ["core_cpu_id"], name: "index_core_hosts_on_core_cpu_id"
-    t.index ["core_formfactor_id"], name: "index_core_hosts_on_core_formfactor_id"
-    t.index ["core_host_pub_mapping_id"], name: "index_core_hosts_on_core_host_pub_mapping_id"
-    t.index ["core_kernel_version_id"], name: "index_core_hosts_on_core_kernel_version_id"
-    t.index ["core_operating_system_id"], name: "index_core_hosts_on_core_operating_system_id"
-    t.index ["core_platform_id"], name: "index_core_hosts_on_core_platform_id"
-    t.index ["core_vendor_id"], name: "index_core_hosts_on_core_vendor_id"
+    t.bigint "host_pub_mapping_id", null: false
+    t.bigint "platform_id", null: false
+    t.bigint "operating_system_id", null: false
+    t.bigint "vendor_id", null: false
+    t.bigint "cpu_id", null: false
+    t.bigint "kernel_version_id", null: false
+    t.bigint "formfactor_id", null: false
+    t.bigint "language_id", null: false
+    t.bigint "run_level_id", null: false
+    t.index ["cpu_id"], name: "index_core_hosts_on_cpu_id"
+    t.index ["formfactor_id"], name: "index_core_hosts_on_formfactor_id"
+    t.index ["host_pub_mapping_id"], name: "index_core_hosts_on_host_pub_mapping_id"
+    t.index ["kernel_version_id"], name: "index_core_hosts_on_kernel_version_id"
+    t.index ["language_id"], name: "index_core_hosts_on_language_id"
+    t.index ["operating_system_id"], name: "index_core_hosts_on_operating_system_id"
+    t.index ["platform_id"], name: "index_core_hosts_on_platform_id"
+    t.index ["run_level_id"], name: "index_core_hosts_on_run_level_id"
+    t.index ["vendor_id"], name: "index_core_hosts_on_vendor_id"
   end
 
   create_table "core_kernel_versions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "kernel_version"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "core_languages", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "language"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -146,6 +152,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_225000) do
 
   create_table "core_platforms", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.text "platform"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "core_run_levels", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "default_runlevel"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -213,17 +225,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_225000) do
     t.index ["uuid"], name: "index_host_on_uuid", unique: true, using: :hash
   end
 
-  add_foreign_key "core_device_links", "core_devices"
-  add_foreign_key "core_device_links", "core_hosts"
+  add_foreign_key "core_device_links", "core_devices", column: "device_id"
+  add_foreign_key "core_device_links", "core_hosts", column: "host_id"
   add_foreign_key "core_devices", "core_device_buses"
   add_foreign_key "core_devices", "core_device_classes"
-  add_foreign_key "core_filesystems", "core_hosts"
-  add_foreign_key "core_hosts", "core_cpus"
-  add_foreign_key "core_hosts", "core_formfactors"
-  add_foreign_key "core_hosts", "core_host_pub_mappings"
-  add_foreign_key "core_hosts", "core_kernel_versions"
-  add_foreign_key "core_hosts", "core_operating_systems"
-  add_foreign_key "core_hosts", "core_platforms"
-  add_foreign_key "core_hosts", "core_vendors"
+  add_foreign_key "core_filesystems", "core_hosts", column: "host_id"
+  add_foreign_key "core_hosts", "core_cpus", column: "cpu_id"
+  add_foreign_key "core_hosts", "core_formfactors", column: "formfactor_id"
+  add_foreign_key "core_hosts", "core_host_pub_mappings", column: "host_pub_mapping_id"
+  add_foreign_key "core_hosts", "core_kernel_versions", column: "kernel_version_id"
+  add_foreign_key "core_hosts", "core_languages", column: "language_id"
+  add_foreign_key "core_hosts", "core_operating_systems", column: "operating_system_id"
+  add_foreign_key "core_hosts", "core_platforms", column: "platform_id"
+  add_foreign_key "core_hosts", "core_run_levels", column: "run_level_id"
+  add_foreign_key "core_hosts", "core_vendors", column: "vendor_id"
   add_foreign_key "file_systems", "host", column: "id"
 end

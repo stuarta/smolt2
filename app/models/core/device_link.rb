@@ -1,4 +1,4 @@
 class Core::DeviceLink < ApplicationRecord
-  belongs_to :core_device
-  belongs_to :core_host
+  belongs_to :device
+  belongs_to :host
 end

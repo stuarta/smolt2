@@ -1,3 +1,3 @@
 class Core::DeviceBus < ApplicationRecord
-  has_many :core_devices
+  has_many :devices
 end

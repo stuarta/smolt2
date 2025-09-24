@@ -1,5 +1,5 @@
 class Core::HostPubMapping < ApplicationRecord
-  has_many :core_hosts
+  has_many :hosts
   def create_pub_uuid(uuid)
     # generate new pub uuid
     pub_uuid = 'pub_' + SecureRandom.uuid
@@ -19,5 +19,13 @@ class Core::HostPubMapping < ApplicationRecord
       pub_uuid = mapping["pub_uuid"]
     end
     pub_uuid
+  end
+
+  def find_or_create_by(uuid: new_uuid)
+    mapping = Core::HostPubMapping.find_or_initialize_by(uuid: new_uuid)
+    if mapping.new_record?
+      mapping.pub_uuid = create_pub_uuid(new_uuid)
+    end
+    mapping
   end
 end

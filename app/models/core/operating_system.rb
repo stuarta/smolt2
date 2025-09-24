@@ -1,3 +1,3 @@
 class Core::OperatingSystem < ApplicationRecord
-  has_many :core_hosts
+  has_many :hosts
 end
