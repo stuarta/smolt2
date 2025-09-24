@@ -72,7 +72,7 @@ class Processor::HostProcessor
 #      m.process_mythtv!(h, host["distro_specific"]["mythtv"])
       Rails.logger.debug "Reached the end of processing"
 
-      h.save
+      h.save!
       # Return host object
       h
     end
