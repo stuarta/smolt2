@@ -55,7 +55,6 @@ class Processor::HostProcessor
           h.file_systems.build(
             mnt_pnt: fs["mnt_pnt"],
             fs_type: fs["fs_type"],
-            fs_type: fs["fs_type"],
             f_bavail: fs["f_favail"],
             f_bsize: fs["f_bsize"],
             f_frsize: fs["f_frsize"],
