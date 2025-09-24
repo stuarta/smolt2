@@ -11,8 +11,8 @@ class Processor::DeviceProcessor
                                           device_id: device['device_id'],
                                           subsys_vendor_id: device['subsys_vendor_id'],
                                           subsys_device_id: device['subsys_device_id'],
-                                          core_device_bus_id: device_bus.id,
-                                          core_device_class_id: device_class.id)
+                                          device_bus_id: device_bus.id,
+                                          device_class_id: device_class.id)
     rescue ActiveRecord::RecordNotUnique
       retry
     end

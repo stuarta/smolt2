@@ -55,16 +55,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_23_225000) do
     t.integer "device_id", null: false
     t.integer "subsys_vendor_id"
     t.integer "subsys_device_id"
-    t.string "device_bus", default: "Unknown"
-    t.string "device_type", default: "Unknown"
     t.string "description", default: ""
     t.string "device_driver", default: "Unknown"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.bigint "core_device_bus_id", null: false
-    t.bigint "core_device_class_id", null: false
-    t.index ["core_device_bus_id"], name: "index_core_devices_on_core_device_bus_id"
-    t.index ["core_device_class_id"], name: "index_core_devices_on_core_device_class_id"
+    t.bigint "device_bus_id", null: false
+    t.bigint "device_class_id", null: false
+    t.index ["device_bus_id"], name: "index_core_devices_on_device_bus_id"
+    t.index ["device_class_id"], name: "index_core_devices_on_device_class_id"
     t.index ["vendor_id", "device_id", "subsys_vendor_id", "subsys_device_id"], name: "idx_devices", unique: true
   end
 
@@ -227,8 +225,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_23_225000) do
 
   add_foreign_key "core_device_links", "core_devices", column: "device_id"
   add_foreign_key "core_device_links", "core_hosts", column: "host_id"
-  add_foreign_key "core_devices", "core_device_buses"
-  add_foreign_key "core_devices", "core_device_classes"
+  add_foreign_key "core_devices", "core_device_buses", column: "device_bus_id"
+  add_foreign_key "core_devices", "core_device_classes", column: "device_class_id"
   add_foreign_key "core_filesystems", "core_hosts", column: "host_id"
   add_foreign_key "core_hosts", "core_cpus", column: "cpu_id"
   add_foreign_key "core_hosts", "core_formfactors", column: "formfactor_id"

@@ -5,8 +5,6 @@ class CreateCoreDevices < ActiveRecord::Migration[5.2]
       t.integer     :device_id,         null: false
       t.integer     :subsys_vendor_id,  default: -> {'NULL'}
       t.integer     :subsys_device_id,  default: -> {'NULL'}
-      t.string      :device_bus,        default: 'Unknown'
-      t.string      :device_type,       default: 'Unknown'
       t.string      :description,       default: ''
       t.string      :device_driver,     default: 'Unknown'
 
