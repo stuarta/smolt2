@@ -5,3 +5,7 @@ def python_xor(key, str)
   text_bytes.each_index { |i| text_bytes[i] ^= key[i % key.size].ord }
   text_bytes.pack("C*")
 end
+
+class Utils::PythonXor
+  ##
+end
