@@ -4,6 +4,7 @@ class CreateCoreLanguages < ActiveRecord::Migration[8.0]
       t.string :language
 
       t.timestamps
+      t.index [:language], name: "language_idx", unique: true
     end
   end
 end

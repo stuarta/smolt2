@@ -4,6 +4,7 @@ class CreateCoreKernelVersions < ActiveRecord::Migration[8.0]
       t.string :kernel_version
 
       t.timestamps
+      t.index [:kernel_version], name: "k_ver_idx", unique: true
     end
   end
 end

@@ -33,12 +33,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_23_225000) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "dev_buses_idx", unique: true
   end
 
   create_table "core_device_classes", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "dev_classes_idx", unique: true
   end
 
   create_table "core_device_links", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -88,6 +90,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_23_225000) do
     t.string "formfactor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["formfactor"], name: "formfactor_idx", unique: true
   end
 
   create_table "core_host_pub_mappings", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -134,30 +137,35 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_23_225000) do
     t.string "kernel_version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["kernel_version"], name: "k_ver_idx", unique: true
   end
 
   create_table "core_languages", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "language"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["language"], name: "language_idx", unique: true
   end
 
   create_table "core_operating_systems", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
-    t.text "os"
+    t.string "os"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["os"], name: "os_idx", unique: true
   end
 
   create_table "core_platforms", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
-    t.text "platform"
+    t.string "platform"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["platform"], name: "platform_idx", unique: true
   end
 
   create_table "core_run_levels", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "default_runlevel"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["default_runlevel"], name: "default_runlevel_idx", unique: true
   end
 
   create_table "core_submissions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -173,6 +181,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_23_225000) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "vendors_idx", unique: true
   end
 
   create_table "file_systems", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
