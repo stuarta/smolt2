@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_01_192144) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_01_211344) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -230,6 +230,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_192144) do
     t.index ["platform"], name: "index_host_on_platform", length: 1024
     t.index ["pub_uuid"], name: "index_host_on_pub_uuid", unique: true, using: :hash
     t.index ["uuid"], name: "index_host_on_uuid", unique: true, using: :hash
+  end
+
+  create_table "myth_audios", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "passthru"
+    t.integer "stereopcm"
+    t.string "upmixtype"
+    t.integer "volcontrol"
+    t.integer "defaultupmix"
+    t.integer "passthruoverride"
+    t.string "mixercontrol"
+    t.integer "sr_override"
+    t.string "passthrudevice"
+    t.string "device"
+    t.string "mixerdevice"
+    t.string "audio_sys"
+    t.string "audio_sys_version"
+    t.integer "jack"
+    t.integer "pulse"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "myth_uuids", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|

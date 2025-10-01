@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  passthru: MyString
+  stereopcm: 1
+  upmixtype: MyString
+  volcontrol: 1
+  defaultupmix: 1
+  passthruoverride: 1
+  mixercontrol: MyString
+  sr_override: 1
+  passthrudevice: MyString
+  device: MyString
+  mixerdevice: MyString
+  audio_sys: MyString
+  audio_sys_version: MyString
+  jack: 1
+  pulse: 1
+
+two:
+  passthru: MyString
+  stereopcm: 1
+  upmixtype: MyString
+  volcontrol: 1
+  defaultupmix: 1
+  passthruoverride: 1
+  mixercontrol: MyString
+  sr_override: 1
+  passthrudevice: MyString
+  device: MyString
+  mixerdevice: MyString
+  audio_sys: MyString
+  audio_sys_version: MyString
+  jack: 1
+  pulse: 1
