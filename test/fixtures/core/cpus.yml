@@ -4,12 +4,12 @@ one:
   cpu_family: 1
   cpu_stepping: 1
   cpu_model_num: 1
-  cpu_vendor: MyText
-  cpu_model: MyText
+  cpu_vendor: Intel
+  cpu_model: i3
 
 two:
-  cpu_family: 1
-  cpu_stepping: 1
-  cpu_model_num: 1
-  cpu_vendor: MyText
-  cpu_model: MyText
+  cpu_family: 2
+  cpu_stepping: 2
+  cpu_model_num: 2
+  cpu_vendor: AMD
+  cpu_model: 3200X

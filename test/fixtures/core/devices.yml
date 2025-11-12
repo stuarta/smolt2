@@ -5,9 +5,9 @@ one:
   device_id: 9294
   subsys_vendor_id: 5208
   subsys_device_id: 34962
-#  bus: "PCI"
+  device_bus_id: 2
 #  driver: "None"
-#  type: "PCI/PCI"
+  device_class_id: 2
   description: "82801 PCI Bridge"
 
 two:
@@ -15,7 +15,7 @@ two:
   device_id: 35842
   subsys_vendor_id: 5208
   subsys_device_id: 45061
-#  bus: "PCI"
+  device_bus_id: 2
 #  driver: "None"
-#  type: "STORAGE"
+  device_class_id: 3
   description: "8 Series/C220 Series Chipset Family 6-port SATA Controller 1 [AHCI mode]"

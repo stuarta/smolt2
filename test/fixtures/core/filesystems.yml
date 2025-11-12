@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  host_id: 1
   mnt_pnt: MyString
   fs_type: MyString
   f_favail: 
@@ -14,6 +15,7 @@ one:
   f_fssize: 
 
 two:
+  host_id: 2
   mnt_pnt: MyString
   fs_type: MyString
   f_favail: 

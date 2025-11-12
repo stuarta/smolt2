@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  kernel_version: MyString
+  kernel_version: 6.17.7
 
 two:
-  kernel_version: MyString
+  kernel_version: 5.15.3
