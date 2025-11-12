@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class Core::HostPubMappingTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has host pub mapping" do
+    Core::HostPubMapping.first
+    assert :success
+  end
 end

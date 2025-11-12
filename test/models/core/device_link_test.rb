@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::DeviceLinkTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has device link" do
+    Core::DeviceLink.first
+    assert :success
+  end
 end

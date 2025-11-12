@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::KernelVersionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has kernel version" do
+    Core::KernelVersion.first
+    assert :success
+  end
 end

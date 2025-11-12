@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class Core::SubmissionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has submission" do
+    Core::Submission.first
+    assert :success
+  end
 end

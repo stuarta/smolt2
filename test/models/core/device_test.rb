@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class Core::DeviceTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has bus" do
+    Core::Device.first
+    assert :success
+  end
 end

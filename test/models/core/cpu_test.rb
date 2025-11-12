@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::CpuTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has cpu" do
+    Core::Cpu.first
+    assert :success
+  end
 end

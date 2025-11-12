@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::OperatingSystemTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has operating system" do
+    Core::OperatingSystem.first
+    assert :success
+  end
 end

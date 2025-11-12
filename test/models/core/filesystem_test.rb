@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::FilesystemTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has filesystem" do
+    Core::Filesystem.first
+    assert :success
+  end
 end

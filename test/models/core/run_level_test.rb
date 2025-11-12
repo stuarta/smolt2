@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::RunLevelTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has runlevel" do
+    Core::RunLevel.first
+    assert :success
+  end
 end

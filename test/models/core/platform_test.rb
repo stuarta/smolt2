@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::PlatformTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has platform" do
+    Core::Platform.first
+    assert :success
+  end
 end

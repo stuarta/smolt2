@@ -1,7 +1,8 @@
 require "test_helper"
 
 class Core::HostTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "has host" do
+    Core::Host.first
+    assert :success
+  end
 end
