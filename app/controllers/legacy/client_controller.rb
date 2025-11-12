@@ -8,11 +8,6 @@ class Legacy::ClientController < ApplicationController
 
     mapper = Core::HostPubMapping.new
     @pub_uuid = mapper.get_pub_uuid(params[:uuid])
-
-    # Log the original data to BatchQueue.
-    # set added=true if immediately processed, else false
-    lq = Legacy::BatchQueue.create(hw_uuid: params[:uuid], added: true, data: params[:host])
-    # New queue for submissions
     q = Core::Submission.create(hw_uuid: params[:uuid], added: false, data: params[:host])
     ProcessHostJob.perform_later q
   end
