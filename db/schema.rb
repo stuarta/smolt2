@@ -252,7 +252,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_31_002342) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "myth_db_engineversions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+  create_table "myth_db_engines", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "engine"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

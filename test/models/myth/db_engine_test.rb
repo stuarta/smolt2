@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Myth::DbEngineversionTest < ActiveSupport::TestCase
+class Myth::DbEngineTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
