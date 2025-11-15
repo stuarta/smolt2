@@ -1,7 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  version: 5.5.24
+  db_version_id: 1
+  used_engine_id: 1
 
 two:
-  version: 4.0.8
+  db_version_id: 1
+  used_engine_id: 2

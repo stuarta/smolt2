@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_12_185154) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_12_224650) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -252,6 +252,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_185154) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "myth_databases", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.bigint "used_engine_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "db_version_id", null: false
+    t.index ["db_version_id"], name: "index_myth_databases_on_db_version_id"
+  end
+
+  create_table "myth_databases_db_engines", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.bigint "database_id"
+    t.bigint "db_engine_id"
+    t.index ["database_id"], name: "index_myth_databases_db_engines_on_database_id"
+    t.index ["db_engine_id"], name: "index_myth_databases_db_engines_on_db_engine_id"
+  end
+
+  create_table "myth_databases_schemaversions", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.bigint "database_id"
+    t.bigint "schemaversion_id"
+    t.index ["database_id"], name: "index_myth_databases_schemaversions_on_database_id"
+    t.index ["schemaversion_id"], name: "index_myth_databases_schemaversions_on_schemaversion_id"
+  end
+
   create_table "myth_db_engines", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "engine"
     t.datetime "created_at", null: false
@@ -292,4 +314,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_185154) do
   add_foreign_key "core_hosts", "core_run_levels", column: "run_level_id"
   add_foreign_key "core_hosts", "core_vendors", column: "vendor_id"
   add_foreign_key "file_systems", "host", column: "id"
+  add_foreign_key "myth_databases", "myth_db_versions", column: "db_version_id"
 end

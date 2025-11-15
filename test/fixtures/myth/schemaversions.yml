@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  version: 1
+  name: DBSchemaVer
+  version: 1307
 
 two:
-  name: MyString
-  version: 1
+  name: ArchiveDBSchemaVer
+  version: 1005
