@@ -5,7 +5,7 @@ class CreateMythDatabases < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_reference :myth_databases, :db_version, null: false, foreign_key: {to_table: :myth_db_versions}
+    add_reference :myth_databases, :db_version, null: false, foreign_key: { to_table: :myth_db_versions }
 
     create_table :myth_databases_db_engines, id: false do |t|
       t.belongs_to :database
