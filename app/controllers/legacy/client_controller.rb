@@ -20,10 +20,10 @@ class Legacy::ClientController < ApplicationController
   def show
     # Could receive either pub_uuid or uuid for a system.
     Rails.logger.debug "Received request for uuid #{params[:uuid]}"
-    if params[:uuid].start_with?("pub_")
-      @host = Legacy::Host.find_by_pub_uuid(params[:uuid])
+    @host = if params[:uuid].start_with?("pub_")
+              Legacy::Host.find_by_pub_uuid(params[:uuid])
     else
-      @host = Legacy::Host.find_by_uuid(params[:uuid])
+              Legacy::Host.find_by_uuid(params[:uuid])
     end
   end
 
@@ -32,7 +32,7 @@ class Legacy::ClientController < ApplicationController
     # Find host by uuid and return pub_uuid
     host = Legacy::Host.find_by_uuid(params[:uuid])
     if host.nil?
-      head (:not_found)
+      head(:not_found)
     else
       # Original smolt returns a "tg_flash": null as well
       # but client doesn't need it
