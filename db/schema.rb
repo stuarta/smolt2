@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_17_173502) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_17_214543) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -327,6 +327,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_173502) do
 
   create_table "myth_playback_profiles", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "profile_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "myth_recordings", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "count"
+    t.bigint "size"
+    t.bigint "time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
