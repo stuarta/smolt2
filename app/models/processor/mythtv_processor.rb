@@ -32,7 +32,7 @@ class Processor::MythtvProcessor
       country:              mythtv_features["country"],
       tzoffset:             mythtv_features["tzoffset"],
       version:              mythtv_features["version"],
-      myth_version_bucket:  mythtv_features["version"].split('-')[0],
+      myth_version_bucket:  mythtv_features["version"].split("-")[0],
       qt_version:           mythtv_features["qtversion"],
       channel_count:        mythtv_features["channel_count"],
       remote:               mythtv_features["remote"],
