@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  decoder: MyString
+  deint_pri: MyString
+  deint_sec: MyString
+  renderer: MyString
+  filters: MyString
+
+two:
+  decoder: MyString
+  deint_pri: MyString
+  deint_sec: MyString
+  renderer: MyString
+  filters: MyString
