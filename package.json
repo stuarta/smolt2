@@ -1,5 +1,15 @@
 {
   "name": "smolt2",
   "private": true,
-  "dependencies": {}
-}
+  "devDependencies": {
+    "esbuild": "^0.27.0"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.20",
+    "sass": "^1.94.0"
+  }}
