@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_074200) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_19_074326) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -309,6 +309,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_074200) do
 
   create_table "myth_languages", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "language"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "myth_libapis", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "libapi"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
