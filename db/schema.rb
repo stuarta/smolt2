@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_175123) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_19_175236) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -411,6 +411,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_175123) do
   create_table "myth_tuners", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "name"
     t.integer "tuner_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "myth_tzoffsets", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "tzoffset"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
