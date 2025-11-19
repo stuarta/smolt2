@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_175236) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -311,6 +311,38 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_175236) do
     t.bigint "showcount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "myth_hosts", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.integer "channelcount"
+    t.integer "sourcecount"
+    t.float "vtpertuner"
+    t.bigint "branch_id"
+    t.bigint "language_id"
+    t.bigint "libapi_id"
+    t.bigint "theme_id"
+    t.bigint "timezone_id"
+    t.bigint "country_id"
+    t.bigint "version_id"
+    t.bigint "version_bucket_id"
+    t.bigint "qt_version_id"
+    t.bigint "remote_id"
+    t.bigint "protocol_id"
+    t.bigint "tzoffset_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_myth_hosts_on_branch_id"
+    t.index ["country_id"], name: "index_myth_hosts_on_country_id"
+    t.index ["language_id"], name: "index_myth_hosts_on_language_id"
+    t.index ["libapi_id"], name: "index_myth_hosts_on_libapi_id"
+    t.index ["protocol_id"], name: "index_myth_hosts_on_protocol_id"
+    t.index ["qt_version_id"], name: "index_myth_hosts_on_qt_version_id"
+    t.index ["remote_id"], name: "index_myth_hosts_on_remote_id"
+    t.index ["theme_id"], name: "index_myth_hosts_on_theme_id"
+    t.index ["timezone_id"], name: "index_myth_hosts_on_timezone_id"
+    t.index ["tzoffset_id"], name: "index_myth_hosts_on_tzoffset_id"
+    t.index ["version_bucket_id"], name: "index_myth_hosts_on_version_bucket_id"
+    t.index ["version_id"], name: "index_myth_hosts_on_version_id"
   end
 
   create_table "myth_languages", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
