@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  count: 1
+  match_avg: 1.5
+  match_stddev: 1.5
+  place_avg: 1.5
+  place_stddev: 1.5
+
+two:
+  count: 2
+  match_avg: 1.5
+  match_stddev: 1.5
+  place_avg: 1.5
+  place_stddev: 1.5
