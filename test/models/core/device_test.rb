@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Core::DeviceTest < ActiveSupport::TestCase
   test "has bus" do

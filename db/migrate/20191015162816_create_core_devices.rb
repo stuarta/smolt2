@@ -3,16 +3,15 @@ class CreateCoreDevices < ActiveRecord::Migration[5.2]
     create_table :core_devices do |t|
       t.integer     :vendor_id,         null: false
       t.integer     :device_id,         null: false
-      t.integer     :subsys_vendor_id,  default: -> {'NULL'}
-      t.integer     :subsys_device_id,  default: -> {'NULL'}
+      t.integer     :subsys_vendor_id,  default: -> { 'NULL' }
+      t.integer     :subsys_device_id,  default: -> { 'NULL' }
       t.string      :description,       default: ''
       t.string      :device_driver,     default: 'Unknown'
 
       t.timestamps
     end
     add_index :core_devices,
-      [:vendor_id, :device_id, :subsys_vendor_id, :subsys_device_id],
-      unique: true,
+      [ :vendor_id, :device_id, :subsys_vendor_id, :subsys_device_id ],
       name: "idx_devices"
   end
 end

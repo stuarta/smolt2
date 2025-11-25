@@ -65,7 +65,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_24_230652) do
     t.bigint "device_class_id", null: false
     t.index ["device_bus_id"], name: "index_core_devices_on_device_bus_id"
     t.index ["device_class_id"], name: "index_core_devices_on_device_class_id"
-    t.index ["vendor_id", "device_id", "subsys_vendor_id", "subsys_device_id"], name: "idx_devices", unique: true
+    t.index ["vendor_id", "device_id", "subsys_vendor_id", "subsys_device_id"], name: "idx_devices"
   end
 
   create_table "core_filesystems", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
