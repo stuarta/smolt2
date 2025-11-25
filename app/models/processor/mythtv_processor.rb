@@ -96,9 +96,11 @@ class Processor::MythtvProcessor
     end
 
     # Tuners
-    f["tuners"].each do |t_name, t_count|
-      m_tuner = Myth::Tuner.create(name: t_name, tuner_count: t_count)
-      myth_host.tuners << m_tuner
+    if f.key?("tuners")
+      f["tuners"].each do |t_name, t_count|
+        m_tuner = Myth::Tuner.create(name: t_name, tuner_count: t_count)
+        myth_host.tuners << m_tuner
+      end
     end
 
     myth_host.audio = process_mythtv_audio!(mythtv_data)
