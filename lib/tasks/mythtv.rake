@@ -8,11 +8,8 @@ namespace :mythtv do
   end
   desc "Import old data"
   task import: :environment do
-    # Legacy::BatchQueue.first(1000).each do |lq|
-    #  ImportLegacyHostJob.perform_now(lq)
-    # end
-    Legacy::BatchQueue.last(1000).each do |lq|
-      ImportLegacyHostJob.perform_now(lq)
+    Legacy::BatchQueue.find_each do |lq|
+     ImportLegacyHostJob.perform_now(lq)
     end
   end
 
