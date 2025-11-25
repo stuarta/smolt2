@@ -6,6 +6,8 @@ class CreateMythRecordings < ActiveRecord::Migration[8.0]
       t.bigint :size
       t.bigint :time
 
+      t.belongs_to :host
+
       t.timestamps
     end
   end

@@ -3,6 +3,8 @@ class CreateMythDatabases < ActiveRecord::Migration[8.0]
     create_table :myth_databases do |t|
       t.bigint :used_engine_id
 
+      t.belongs_to :host
+
       t.timestamps
     end
     add_reference :myth_databases, :db_version, null: false, foreign_key: { to_table: :myth_db_versions }

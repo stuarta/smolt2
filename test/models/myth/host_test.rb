@@ -1,11 +1,13 @@
 require "test_helper"
 
 class Myth::HostTest < ActiveSupport::TestCase
-  test "Myth::Database model" do
+  test "Myth::Host model" do
     mj = file_fixture("mythtv.json").read
     m = JSON.parse(mj)
     f = m["features"]
     myth_host = Myth::Host.new
+    myth_uuid = Myth::Uuid.find_or_create_by(myth_uuid: "#{f["uuid"]}")
+    myth_host.uuid_id = myth_uuid.id
     mb = Myth::Branch.find_or_create_by(branch: "#{f["branch"]}")
     myth_host.branch_id = mb.id
     ml = Myth::Language.find_or_create_by(language: "#{f["language"]}")
@@ -33,6 +35,42 @@ class Myth::HostTest < ActiveSupport::TestCase
     m_tzoffset = Myth::Tzoffset.find_or_create_by(tzoffset: "#{f["tzoffset"]}")
     myth_host.tzoffset_id = m_tzoffset.id
     myth_host.vtpertuner = f["vtpertuner"]
-    assert myth_host.save
+    f["grabbers"].each do |grabber|
+      m_grabber = Myth::Grabber.find_or_create_by(grabber: "#{grabber}")
+      myth_host.grabbers << m_grabber
+    end
+    m_history = Myth::Historical.create(db_age:     f["historical"]["db_age"],
+                                        rectime:    f["historical"]["rectime"],
+                                        reccount:   f["historical"]["reccount"],
+                                        showcount:  f["historical"]["showcount"])
+    myth_host.historical_id = m_history.id
+    f["recordings"].each do |r_name, r_stat|
+      m_recstat = Myth::Recording.create(name:  r_name,
+                                         count: r_stat["count"],
+                                         time:  r_stat["time"])
+      if r_stat.key?("size")
+        m_recstat["size"] = r_stat["size"]
+      end
+      myth_host.recordings << m_recstat
+    end
+    # Scheduler, optional
+    if not f["scheduler"].empty?
+      m_scheduler = Myth::Scheduler.create(count:         f["scheduler"]["count"],
+                                           match_avg:     f["scheduler"]["match_avg"],
+                                           match_stddev:  f["scheduler"]["match_scheduler"],
+                                           place_avg:     f["scheduler"]["place_avg"],
+                                           place_stddev:  f["scheduler"]["place_stddev"])
+      myth_host.scheduler = m_scheduler
+    end
+    f["storage"].each do |s_name, s_size|
+      m_storage = Myth::Storage.create(name: s_name, size: s_size)
+      myth_host.storages << m_storage
+    end
+    f["tuners"].each do |t_name, t_count|
+      m_tuner = Myth::Tuner.create(name: t_name, tuner_count: t_count)
+      myth_host.tuners << m_tuner
+    end
+
+    assert myth_host.valid?
   end
 end

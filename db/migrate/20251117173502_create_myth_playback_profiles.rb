@@ -3,6 +3,8 @@ class CreateMythPlaybackProfiles < ActiveRecord::Migration[8.0]
     create_table :myth_playback_profiles do |t|
       t.string :profile_name
 
+      t.belongs_to :host
+
       t.timestamps
     end
     create_table :myth_playback_profile_details_profiles, id: false do |t|

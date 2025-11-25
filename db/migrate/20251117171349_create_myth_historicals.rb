@@ -6,6 +6,8 @@ class CreateMythHistoricals < ActiveRecord::Migration[8.0]
       t.bigint :reccount
       t.bigint :showcount
 
+      t.belongs_to :host
+
       t.timestamps
     end
   end

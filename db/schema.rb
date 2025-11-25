@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_24_230652) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -233,23 +233,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
   end
 
   create_table "myth_audios", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "audio_sys"
+    t.string "audio_sys_version"
+    t.integer "defaultupmix"
+    t.string "device"
+    t.integer "jack"
+    t.integer "maxchannels"
+    t.string "mixercontrol"
+    t.string "mixerdevice"
     t.string "passthru"
+    t.string "passthrudevice"
+    t.integer "passthruoverride"
+    t.integer "pulse"
+    t.integer "sr_override"
     t.integer "stereopcm"
     t.string "upmixtype"
     t.integer "volcontrol"
-    t.integer "defaultupmix"
-    t.integer "passthruoverride"
-    t.string "mixercontrol"
-    t.integer "sr_override"
-    t.string "passthrudevice"
-    t.string "device"
-    t.string "mixerdevice"
-    t.string "audio_sys"
-    t.string "audio_sys_version"
-    t.integer "jack"
-    t.integer "pulse"
+    t.bigint "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_myth_audios_on_host_id"
   end
 
   create_table "myth_branches", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -266,10 +269,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
 
   create_table "myth_databases", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.bigint "used_engine_id"
+    t.bigint "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "db_version_id", null: false
     t.index ["db_version_id"], name: "index_myth_databases_on_db_version_id"
+    t.index ["host_id"], name: "index_myth_databases_on_host_id"
   end
 
   create_table "myth_databases_db_engines", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -304,35 +309,47 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "myth_grabbers_hosts", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.bigint "grabber_id"
+    t.bigint "host_id"
+    t.index ["grabber_id"], name: "index_myth_grabbers_hosts_on_grabber_id"
+    t.index ["host_id"], name: "index_myth_grabbers_hosts_on_host_id"
+  end
+
   create_table "myth_historicals", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.bigint "db_age"
     t.bigint "rectime"
     t.bigint "reccount"
     t.bigint "showcount"
+    t.bigint "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_myth_historicals_on_host_id"
   end
 
   create_table "myth_hosts", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "channelcount"
     t.integer "sourcecount"
     t.float "vtpertuner"
+    t.bigint "uuid_id"
     t.bigint "branch_id"
+    t.bigint "country_id"
+    t.bigint "historical_id"
     t.bigint "language_id"
     t.bigint "libapi_id"
+    t.bigint "protocol_id"
     t.bigint "theme_id"
     t.bigint "timezone_id"
-    t.bigint "country_id"
+    t.bigint "tzoffset_id"
+    t.bigint "remote_id"
+    t.bigint "qt_version_id"
     t.bigint "version_id"
     t.bigint "version_bucket_id"
-    t.bigint "qt_version_id"
-    t.bigint "remote_id"
-    t.bigint "protocol_id"
-    t.bigint "tzoffset_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_myth_hosts_on_branch_id"
     t.index ["country_id"], name: "index_myth_hosts_on_country_id"
+    t.index ["historical_id"], name: "index_myth_hosts_on_historical_id"
     t.index ["language_id"], name: "index_myth_hosts_on_language_id"
     t.index ["libapi_id"], name: "index_myth_hosts_on_libapi_id"
     t.index ["protocol_id"], name: "index_myth_hosts_on_protocol_id"
@@ -341,6 +358,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
     t.index ["theme_id"], name: "index_myth_hosts_on_theme_id"
     t.index ["timezone_id"], name: "index_myth_hosts_on_timezone_id"
     t.index ["tzoffset_id"], name: "index_myth_hosts_on_tzoffset_id"
+    t.index ["uuid_id"], name: "index_myth_hosts_on_uuid_id"
     t.index ["version_bucket_id"], name: "index_myth_hosts_on_version_bucket_id"
     t.index ["version_id"], name: "index_myth_hosts_on_version_id"
   end
@@ -383,8 +401,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
 
   create_table "myth_playback_profiles", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "profile_name"
+    t.bigint "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_myth_playback_profiles_on_host_id"
   end
 
   create_table "myth_protocols", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -404,14 +424,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
     t.bigint "count"
     t.bigint "size"
     t.bigint "time"
+    t.bigint "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_myth_recordings_on_host_id"
   end
 
   create_table "myth_remotes", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "remote"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "myth_schedulers", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.bigint "count"
+    t.float "match_avg"
+    t.float "match_stddev"
+    t.float "place_avg"
+    t.float "place_stddev"
+    t.bigint "host_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_myth_schedulers_on_host_id"
   end
 
   create_table "myth_schemaversions", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -424,8 +458,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
   create_table "myth_storages", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "size"
+    t.bigint "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_myth_storages_on_host_id"
   end
 
   create_table "myth_themes", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
@@ -442,9 +478,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_180900) do
 
   create_table "myth_tuners", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.string "name"
-    t.integer "tuner_number"
+    t.integer "tuner_count"
+    t.bigint "host_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["host_id"], name: "index_myth_tuners_on_host_id"
   end
 
   create_table "myth_tzoffsets", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|

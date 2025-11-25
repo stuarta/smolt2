@@ -4,6 +4,8 @@ class CreateMythStorages < ActiveRecord::Migration[8.0]
       t.string :name
       t.bigint :size
 
+      t.belongs_to :host
+
       t.timestamps
     end
   end

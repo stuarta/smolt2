@@ -23,6 +23,7 @@ class Myth::DatabaseTest < ActiveSupport::TestCase
     dbv = Myth::DbVersion.find_or_create_by(version: db["version"])
     x.db_version_id = dbv.id
 
+    x.host_id = Myth::Host.first.id
     assert x.save
   end
 end

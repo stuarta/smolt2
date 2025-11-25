@@ -2,222 +2,176 @@ class Processor::MythtvProcessor
   def process_mythtv!(host, mythtv_data)
     # Add current time to data so it's consistent across all tables
     mythtv_data["last_modified"] = DateTime.now
+    myth_uuid_data = mythtv_data["features"]["uuid"]
+    Rails.logger.info("Handling MythTV uuid: #{myth_uuid_data}")
+    if Myth::Uuid.exists?(myth_uuid: "#{myth_uuid_data}")
+      Rails.logger.info("* removing existing record")
+      u = Myth::Uuid.find_by(myth_uuid: "#{myth_uuid_data}")
+      Myth::Host.destroy_by(uuid_id: u.id)
+    else
+      Rails.logger.info("* new mythtv uuid")
+    end
+    myth_uuid = Myth::Uuid.find_or_create_by(myth_uuid: "#{myth_uuid_data}")
 
-    mythtv_host = process_mythtv_host!(host, mythtv_data)
-    process_mythtv_audio!(host, mythtv_host, mythtv_data)
-    process_mythtv_database!(host, mythtv_host, mythtv_data)
-    process_mythtv_grabbers!(host, mythtv_host, mythtv_data)
-    process_mythtv_historical!(host, mythtv_host, mythtv_data)
-    process_mythtv_pbp!(host, mythtv_host, mythtv_data)
-    process_mythtv_recordings!(host, mythtv_host, mythtv_data)
-    process_mythtv_scheduler!(host, mythtv_host, mythtv_data)
-    process_mythtv_storage!(host, mythtv_host, mythtv_data)
-    process_mythtv_tuners!(host, mythtv_host, mythtv_data)
-    process_mythtv_logs!(host, mythtv_host, mythtv_data)
+    process_mythtv_host!(myth_uuid, mythtv_data)
   end
 
-  def process_mythtv_host!(host, mythtv_data)
-    mythtv_features = mythtv_data["features"]
-    Legacy::MythtvHost.where(host: host).destroy_all
-    h = Legacy::MythtvHost.new(
-      host:                 host,
-      branch:               mythtv_features["branch"],
-      myth_uuid:            mythtv_features["uuid"],
-      language:             mythtv_features["language"],
-      libapi:               mythtv_features["libapi"],
-      protocol:             mythtv_data["protocol"],
-      sourcecount:          mythtv_features["sourcecount"],
-      theme:                mythtv_features["theme"],
-      timezone:             mythtv_features["timezone"],
-      country:              mythtv_features["country"],
-      tzoffset:             mythtv_features["tzoffset"],
-      version:              mythtv_features["version"],
-      myth_version_bucket:  mythtv_features["version"].split("-")[0],
-      qt_version:           mythtv_features["qtversion"],
-      channel_count:        mythtv_features["channel_count"],
-      remote:               mythtv_features["remote"],
-      myth_type:            mythtv_features["mythtype"],
-      vtpertuner:           mythtv_features["vtpertuner"],
-      last_modified:        mythtv_data["last_modified"],
-    )
-    h.save!
+  def process_mythtv_host!(myth_uuid, mythtv_data)
+    f = mythtv_data["features"]
+    myth_host = Myth::Host.new
+    myth_host.uuid_id = myth_uuid.id
+    mb = Myth::Branch.find_or_create_by(branch: "#{f["branch"]}")
+    myth_host.branch_id = mb.id
+    ml = Myth::Language.find_or_create_by(language: "#{f["language"]}")
+    myth_host.language_id = ml.id
+    m_libapi = Myth::Libapi.find_or_create_by(libapi: "#{f["libapi"]}")
+    myth_host.libapi_id = m_libapi.id
+    m_theme = Myth::Theme.find_or_create_by(theme: "#{f["theme"]}")
+    myth_host.theme_id = m_theme.id
+    m_tz = Myth::Timezone.find_or_create_by(timezone: "#{f["timezone"]}")
+    myth_host.timezone_id = m_tz.id
+    m_country = Myth::Country.find_or_create_by(country: "#{f["country"]}")
+    myth_host.country_id = m_country.id
+    m_ver = Myth::Version.find_or_create_by(version: "#{f["version"]}")
+    myth_host.version_id = m_ver.id
+    m_vb = Myth::VersionBucket.find_or_create_by(version_bucket: "#{m_ver.version_bucket}")
+    myth_host.version_bucket_id = m_vb.id
+    m_qt_version = Myth::QtVersion.find_or_create_by(qt_version: "#{f["qtversion"]}")
+    myth_host.qt_version_id = m_qt_version.id
+    myth_host.channelcount = f["channel_count"]
+    myth_host.sourcecount = f["sourcecount"]
+    m_remote = Myth::Remote.find_or_create_by(remote: "#{f["remote"]}")
+    myth_host.remote_id = m_remote.id
+    m_protocol = Myth::Protocol.find_or_create_by(protocol: "#{f["protocol"]}")
+    myth_host.protocol_id = m_protocol.id
+    m_tzoffset = Myth::Tzoffset.find_or_create_by(tzoffset: "#{f["tzoffset"]}")
+    myth_host.tzoffset_id = m_tzoffset.id
+    myth_host.vtpertuner = f["vtpertuner"]
+
+    # Grabbers
+    f["grabbers"].each do |grabber|
+      m_grabber = Myth::Grabber.find_or_create_by(grabber: "#{grabber}")
+      myth_host.grabbers << m_grabber
+    end
+
+    # Historical Data, optional
+    if f.key?("historical")
+      m_history = Myth::Historical.create(db_age:     f["historical"]["db_age"],
+                                          rectime:    f["historical"]["rectime"],
+                                          reccount:   f["historical"]["reccount"],
+                                          showcount:  f["historical"]["showcount"])
+      myth_host.historical_id = m_history.id
+    end
+
+    # Recordings, optional
+    if f.key?("recordings")
+      f["recordings"].each do |r_name, r_stat|
+        m_recstat = Myth::Recording.create(name:  r_name,
+                                          count: r_stat["count"],
+                                          time:  r_stat["time"])
+        if r_stat.key?("size")
+          m_recstat["size"] = r_stat["size"]
+        end
+        myth_host.recordings << m_recstat
+      end
+    end
+
+    # Scheduler, optional
+    if not f["scheduler"].empty?
+      m_scheduler = Myth::Scheduler.create(count:         f["scheduler"]["count"],
+                                           match_avg:     f["scheduler"]["match_avg"],
+                                           match_stddev:  f["scheduler"]["match_stddev"],
+                                           place_avg:     f["scheduler"]["place_avg"],
+                                           place_stddev:  f["scheduler"]["place_stddev"])
+      myth_host.scheduler = m_scheduler
+    end
+    # Storage, optional
+    if f.key?("storage")
+      f["storage"].each do |s_name, s_size|
+        m_storage = Myth::Storage.create(name: s_name, size: s_size)
+        myth_host.storages << m_storage
+      end
+    end
+
+    # Tuners
+    f["tuners"].each do |t_name, t_count|
+      m_tuner = Myth::Tuner.create(name: t_name, tuner_count: t_count)
+      myth_host.tuners << m_tuner
+    end
+
+    myth_host.audio = process_mythtv_audio!(mythtv_data)
+    myth_host.database = process_mythtv_database!(mythtv_data)
+    myth_host.playback_profile = process_mythtv_pbp!(mythtv_data)
+
+    myth_host.save!
     # Return MythtvHost object
-    h
+    myth_host
   end
 
-  def process_mythtv_audio!(host, mythtv_host, mythtv_data)
+  def process_mythtv_audio!(mythtv_data)
     mythtv_audio = mythtv_data["features"]["audio"]
     return if mythtv_audio.nil? or mythtv_audio.empty?
-    Legacy::MythtvAudio.where(host: host).destroy_all
-    a = Legacy::MythtvAudio.new(
-      host:               host,
-      audio_sys:          mythtv_audio["audio_sys"],
-      audio_sys_version:  mythtv_audio["audio_sys_version"],
-      device:             mythtv_audio["device"],
-      mixercontrol:       mythtv_audio["mixercontrol"],
-      mixerdevice:        mythtv_audio["mixerdevice"],
-      maxchannels:        mythtv_audio["maxchannels"],
-      steropcm:           mythtv_audio["stereopcm"],
-      volcontrol:         mythtv_audio["volcontrol"],
-      passthru:           mythtv_audio["passthru"][0],
-      passthruoverride:   mythtv_audio["passthruoverride"],
-      passthrudevice:     mythtv_audio["passthrudevice"],
-      sr_override:        mythtv_audio["sr_override"],
-      upmixtype:          mythtv_audio["upmixtype"],
-      defaultupmix:       mythtv_audio["defaultupmix"],
-      jack:               mythtv_audio["jack"],
-      pulse:              mythtv_audio["pulse"],
-      last_modified:      mythtv_data["last_modified"],
-    )
-    a.save!
+    m_audio = Myth::Audio.new
+    m_audio.audio_sys = mythtv_audio["audio_sys"]
+    m_audio.audio_sys_version = mythtv_audio["audio_sys_version"]
+    m_audio.defaultupmix = mythtv_audio["defaultupmix"]
+    m_audio.device = mythtv_audio["device"]
+    m_audio.jack = mythtv_audio["jack"]
+    m_audio.maxchannels = mythtv_audio["maxchannels"]
+    m_audio.mixercontrol = mythtv_audio["mixercontrol"]
+    m_audio.mixerdevice = mythtv_audio["mixerdevice"]
+    m_audio.passthru = mythtv_audio["passthru"]
+    m_audio.passthrudevice = mythtv_audio["passthroughdevice"]
+    m_audio.passthruoverride = mythtv_audio["passthroughoverride"]
+    m_audio.pulse = mythtv_audio["pulse"]
+    m_audio.sr_override = mythtv_audio["sr_override"]
+    m_audio.stereopcm = mythtv_audio["stereopcm"]
+    m_audio.upmixtype = mythtv_audio["upmixtype"]
+    m_audio.volcontrol = mythtv_audio["volcontrol"]
+    # Return Myth::Audio object
+    m_audio
   end
 
-  def process_mythtv_database!(host, mythtv_host, mythtv_data)
-    mythtv_database = mythtv_data["features"]["database"]
-    return if mythtv_database.empty?
-    Legacy::MythtvDatabase.where(mythtv_host: mythtv_host).destroy_all
-    d = Legacy::MythtvDatabase.new(
-      mythtv_host:    mythtv_host,
-      version:        mythtv_database["version"],
-      usedengine:     mythtv_database["usedengine"],
-      engines:        mythtv_database["engines"],
-      schemas:        mythtv_database["schema"],
-      last_modified:  mythtv_data["last_modified"],
-    )
-    d.save!
-  end
+  def process_mythtv_database!(mythtv_data)
+    db = mythtv_data["features"]["database"]
+    return if db.empty?
+    myth_db = Myth::Database.new
 
-  def process_mythtv_grabbers!(host, mythtv_host, mythtv_data)
-    mythtv_grabbers = mythtv_data["features"]["grabbers"]
-    Legacy::MythtvGrabber.where(mythtv_host: mythtv_host).destroy_all
-    return if mythtv_grabbers.empty?
-    mythtv_grabbers.each do |grabber|
-      g = Legacy::MythtvGrabber.new(
-        host:           host,
-        mythtv_host:    mythtv_host,
-        grabber:        grabber,
-        last_modified:  mythtv_data["last_modified"],
-      )
-      g.save!
+    db["schema"].each do |sk, sv|
+      skv = Myth::Schemaversion.find_or_create_by(name: "#{sk}", version: "#{sv}")
+      myth_db.schemaversions<<skv
     end
+
+    db["engines"].each do |sv|
+      ev = Myth::DbEngine.find_or_create_by(engine: "#{sv}")
+      myth_db.db_engines<<ev
+    end
+
+    ev = Myth::DbEngine.find_or_create_by(engine: db["usedengine"])
+    myth_db.used_engine=ev
+
+    dbv = Myth::DbVersion.find_or_create_by(version: db["version"])
+    myth_db.db_version_id = dbv.id
+
+    # Return Myth::Database object
+    myth_db
   end
 
-  def process_mythtv_historical!(host, mythtv_host, mythtv_data)
-    mythtv_historical = mythtv_data["features"]["historical"]
-    return if mythtv_historical.nil?
-    Legacy::MythtvHistorical.where(mythtv_host: mythtv_host).destroy_all
-    h = Legacy::MythtvHistorical.new(
-      mythtv_host:    mythtv_host,
-      db_age:         mythtv_historical["db_age"],
-      rectime:        mythtv_historical["rectime"],
-      reccount:       mythtv_historical["reccount"],
-      showcount:      mythtv_historical["showcount"],
-      last_modified:  mythtv_data["last_modified"],
-    )
-    h.save!
-  end
-
-  def process_mythtv_pbp!(host, mythtv_host, mythtv_data)
+  def process_mythtv_pbp!(mythtv_data)
     mythtv_playback_profile = mythtv_data["features"]["playbackprofile"]
     return if mythtv_playback_profile.nil? or mythtv_playback_profile.empty?
-    Legacy::MythtvPlaybackProfile.where(host: host).destroy_all
-    pbp = Legacy::MythtvPlaybackProfile.new(
-      host:           host,
-      mythtv_host:    mythtv_host,
-      name:           mythtv_playback_profile["name"],
-      profiles:       mythtv_playback_profile["profiles"],
-      last_modified:  mythtv_data["last_modified"],
-    )
-    pbp.save!
-  end
-
-  def process_mythtv_recordings!(host, mythtv_host, mythtv_data)
-    mythtv_recordings = mythtv_data["features"]["recordings"]
-    return if mythtv_recordings.empty?
-    Legacy::MythtvRecording.where(mythtv_host: mythtv_host).destroy_all
-    r = Legacy::MythtvRecording.new(
-      mythtv_host:    mythtv_host,
-      sched_count:    mythtv_recordings["scheduled"]["count"],
-      sched_time:     mythtv_recordings["scheduled"]["time"],
-      sched_size:     mythtv_recordings["scheduled"]["size"],
-      live_count:     mythtv_recordings["livetv"]["count"],
-      live_time:      mythtv_recordings["livetv"]["time"],
-      live_size:      mythtv_recordings["livetv"]["size"],
-      exp_count:      mythtv_recordings["expireable"]["count"],
-      exp_time:       mythtv_recordings["expireable"]["time"],
-      exp_size:       mythtv_recordings["expireable"]["size"],
-      upcoming_count: mythtv_recordings["upcoming"]["count"],
-      upcoming_time:  mythtv_recordings["upcoming"]["time"],
-      last_modified:  mythtv_data["last_modified"],
-    )
-    r.save!
-  end
-
-  def process_mythtv_scheduler!(host, mythtv_host, mythtv_data)
-    mythtv_scheduler = mythtv_data["features"]["scheduler"]
-    # Handle empty scheduler response
-    return if mythtv_scheduler.empty?
-    Legacy::MythtvScheduler.where(mythtv_host: mythtv_host).destroy_all
-    s = Legacy::MythtvScheduler.new(
-      mythtv_host:    mythtv_host,
-      count:          mythtv_scheduler["count"],
-      match_avg:      mythtv_scheduler["match_avg"],
-      match_stddev:   mythtv_scheduler["match_stddev"],
-      place_avg:      mythtv_scheduler["place_avg"],
-      place_stddev:   mythtv_scheduler["place_stddev"],
-      last_modified:  mythtv_data["last_modified"],
-    )
-    s.save!
-  end
-
-  def process_mythtv_storage!(host, mythtv_host, mythtv_data)
-    mythtv_storage = mythtv_data["features"]["storage"]
-    return if mythtv_storage.nil? or mythtv_storage.empty?
-    s = Legacy::MythtvStorage.find_by(mythtv_host: mythtv_host)
-    if s.nil?
-      s = Legacy::MythtvStorage.new(
-        mythtv_host:    mythtv_host,
-        last_modified:  mythtv_data["last_modified"],
-      )
+    pbp = Myth::PlaybackProfile.new
+    pbp.profile_name = pbp["name"]
+    mythtv_playback_profile["profiles"].each do |p|
+      pbp_details = Myth::PlaybackProfileDetail.find_or_create_by(decoder: "#{p["decoder"]}",
+                                                         deint_pri: "#{p["deint_pri"]}",
+                                                         deint_sec: "#{p["deint_sec"]}",
+                                                         renderer: "#{p["renderer"]}",
+                                                         filters: "#{p["filters"]}")
+      pbp.playback_profile_details << pbp_details
     end
-    s.update(
-      recfree:        mythtv_storage["recfree"],
-      rectotal:       mythtv_storage["rectotal"],
-      videototal:     mythtv_storage["videototal"],
-      videofree:      mythtv_storage["videofree"],
-      last_modified:  mythtv_data["last_modified"],
-    )
-    s.save!
-  end
 
-  def process_mythtv_tuners!(host, mythtv_host, mythtv_data)
-    mythtv_tuners = mythtv_data["features"]["tuners"]
-    return if mythtv_tuners.empty?
-    Legacy::MythtvTuner.where(mythtv_host: mythtv_host).destroy_all
-    mythtv_tuners.each do |tuner_type, tuner_count|
-      t = Legacy::MythtvTuner.new(
-        mythtv_host:    mythtv_host,
-        tuner_type:     tuner_type,
-        tuner_count:    tuner_count,
-        last_modified:  mythtv_data["last_modified"],
-      )
-      t.save!
-    end
-  end
-
-  def process_mythtv_logs!(host, mythtv_host, mythtv_data)
-    mythtv_log = mythtv_data["features"]["logurgency"]
-    return if mythtv_log.nil? or mythtv_log.empty?
-    Legacy::MythtvLog.where(mythtv_host: mythtv_host).destroy_all
-    l = Legacy::MythtvLog.new(
-      mythtv_host:    mythtv_host,
-      crit:           mythtv_log["CRIT"],
-      info:           mythtv_log["INFO"],
-      notice:         mythtv_log["NOTICE"],
-      warning:        mythtv_log["WARNING"],
-      err:            mythtv_log["ERR"],
-      last_modified:  mythtv_data["last_modified"],
-    )
-    l.save!
+    # Return Myth::PlaybackProfile object
+    pbp
   end
 end

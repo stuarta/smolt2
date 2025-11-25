@@ -5,7 +5,7 @@ class Processor::HostProcessor
     hpm = Core::HostPubMapping.find_or_create_by(uuid: host["uuid"])
     h = Core::Host.find_by(host_pub_mapping_id: hpm.id)
     if h.nil?
-    # Create Host entry
+      # Create Host entry
       Rails.logger.info "New host entry for #{host["uuid"]} will be created"
       h = Core::Host.new(
         updated_at:       host_raw.arrival,
@@ -75,8 +75,8 @@ class Processor::HostProcessor
       end
     end
     # Process MythTV specific data
-#      m = Processor::MythtvProcessor.new
-#      m.process_mythtv!(h, host["distro_specific"]["mythtv"])
+    m = Processor::MythtvProcessor.new
+    m.process_mythtv!(h, host["distro_specific"]["mythtv"])
     Rails.logger.debug "Reached the end of processing"
 
     h.save!

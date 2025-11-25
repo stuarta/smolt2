@@ -1,6 +1,6 @@
 class Core::Host < ApplicationRecord
   has_many    :device_links
-  has_many    :devices, through: :device_links
+  has_many    :devices, through: :device_links, dependent: :destroy
   has_many    :file_systems, class_name: "Core::Filesystem", dependent: :destroy
   belongs_to  :formfactor
   belongs_to  :host_pub_mapping
