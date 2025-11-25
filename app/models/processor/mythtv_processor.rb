@@ -49,9 +49,11 @@ class Processor::MythtvProcessor
     myth_host.vtpertuner = f["vtpertuner"]
 
     # Grabbers
-    f["grabbers"].each do |grabber|
-      m_grabber = Myth::Grabber.find_or_create_by(grabber: "#{grabber}")
-      myth_host.grabbers << m_grabber
+    if f.key?("grabbers")
+      f["grabbers"].each do |grabber|
+        m_grabber = Myth::Grabber.find_or_create_by(grabber: "#{grabber}")
+        myth_host.grabbers << m_grabber
+      end
     end
 
     # Historical Data, optional
