@@ -66,7 +66,7 @@ class Processor::MythtvProcessor
     # Recordings, optional
     if f.key?("recordings")
       f["recordings"].each do |r_name, r_stat|
-        m_recstat = Myth::Recording.create(name:  r_name,
+        m_recstat = Myth::Recording.create(name: r_name,
                                           count: r_stat["count"],
                                           time:  r_stat["time"])
         if r_stat.key?("size")

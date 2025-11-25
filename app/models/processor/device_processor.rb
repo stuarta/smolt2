@@ -19,25 +19,25 @@ class Processor::DeviceProcessor
       end
     end
     begin
-      d = Core::Device.create!( vendor_id: device['vendor_id'],
-                                device_id: device['device_id'],
-                                subsys_vendor_id: device['subsys_vendor_id'],
-                                subsys_device_id: device['subsys_device_id'],
+      d = Core::Device.create!(vendor_id: device["vendor_id"],
+                                device_id: device["device_id"],
+                                subsys_vendor_id: device["subsys_vendor_id"],
+                                subsys_device_id: device["subsys_device_id"],
                                 device_bus_id: device_bus.id,
                                 device_class_id: device_class.id
                               )
     rescue ActiveRecord::RecordNotUnique
-      d = Core::Device.find_by( vendor_id: device['vendor_id'],
-                                device_id: device['device_id'],
-                                subsys_vendor_id: device['subsys_vendor_id'],
-                                subsys_device_id: device['subsys_device_id'],
+      d = Core::Device.find_by(vendor_id: device["vendor_id"],
+                                device_id: device["device_id"],
+                                subsys_vendor_id: device["subsys_vendor_id"],
+                                subsys_device_id: device["subsys_device_id"],
                                 device_bus_id: device_bus.id,
                                 device_class_id: device_class.id
                               )
     end
     d.update(
-      device_driver:  device['driver'],
-      description:    device['description'],
+      device_driver:  device["driver"],
+      description:    device["description"],
     )
     d.save!
     # Return device object
