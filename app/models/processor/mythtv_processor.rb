@@ -79,7 +79,7 @@ class Processor::MythtvProcessor
     end
 
     # Scheduler, optional
-    if not f["scheduler"].empty?
+    if f.key?("scheduler") and not f["scheduler"].empty?
       m_scheduler = Myth::Scheduler.create(count:         f["scheduler"]["count"],
                                            match_avg:     f["scheduler"]["match_avg"],
                                            match_stddev:  f["scheduler"]["match_stddev"],
