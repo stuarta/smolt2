@@ -15,7 +15,7 @@ class ImportLegacyHostJob < ApplicationJob
       hw_uuid: legacy_submission.hw_uuid,
       data: legacy_submission.data
     )
-    ProcessHostJob.perform_now(s)
+    ProcessHostJob.perform_later(s)
     true
   end
 end
