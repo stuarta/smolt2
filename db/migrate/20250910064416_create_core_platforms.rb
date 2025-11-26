@@ -4,7 +4,7 @@ class CreateCorePlatforms < ActiveRecord::Migration[8.0]
       t.string :platform
 
       t.timestamps
-      t.index [:platform], name: "platform_idx", unique: true
+      t.index [ :platform ], name: "platform_idx", unique: true
     end
   end
 end

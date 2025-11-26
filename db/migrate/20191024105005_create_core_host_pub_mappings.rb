@@ -7,7 +7,7 @@ class CreateCoreHostPubMappings < ActiveRecord::Migration[5.2]
       t.timestamps
     end
     add_index :core_host_pub_mappings,
-      [:uuid, :pub_uuid],
+      [ :uuid, :pub_uuid ],
       unique: true,
       name: "idx_host_pub"
   end

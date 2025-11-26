@@ -4,7 +4,7 @@ class CreateCoreOperatingSystems < ActiveRecord::Migration[8.0]
       t.string :os
 
       t.timestamps
-      t.index [:os], name: "os_idx", unique: true
+      t.index [ :os ], name: "os_idx", unique: true
     end
   end
 end

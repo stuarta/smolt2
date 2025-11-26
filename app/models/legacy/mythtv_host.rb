@@ -1,4 +1,4 @@
 class Legacy::MythtvHost < LegacyRecord
-  self.table_name = 'mythtv_host'
+  self.table_name = "mythtv_host"
   belongs_to :host, foreign_key: "machine_id"
 end

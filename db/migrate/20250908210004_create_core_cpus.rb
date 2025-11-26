@@ -9,6 +9,6 @@ class CreateCoreCpus < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
-    add_index :core_cpus, [:cpu_family, :cpu_stepping, :cpu_model_num]
+    add_index :core_cpus, [ :cpu_family, :cpu_stepping, :cpu_model_num ]
   end
 end

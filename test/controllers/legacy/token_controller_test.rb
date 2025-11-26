@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Legacy::TokenControllerTest < ActionDispatch::IntegrationTest
   test "token_json_works" do

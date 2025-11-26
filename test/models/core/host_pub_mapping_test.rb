@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Core::HostPubMappingTest < ActiveSupport::TestCase
   test "has host pub mapping" do

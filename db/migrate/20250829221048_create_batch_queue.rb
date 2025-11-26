@@ -4,7 +4,7 @@ class CreateBatchQueue < ActiveRecord::Migration[7.2]
       t.timestamp :arrival,   default: -> { "CURRENT_TIMESTAMP" }
       t.integer   :added,     null: false
       t.string    :hw_uuid,   null: false
-      t.text      :data,      default: -> {'NULL'}
+      t.text      :data,      default: -> { 'NULL' }
     end
   end
 end

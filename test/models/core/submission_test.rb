@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Core::SubmissionTest < ActiveSupport::TestCase
   test "has submission" do

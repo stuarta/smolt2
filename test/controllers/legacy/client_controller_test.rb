@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Legacy::ClientControllerTest < ActionDispatch::IntegrationTest
   test "add_json" do
@@ -20,10 +20,10 @@ class Legacy::ClientControllerTest < ActionDispatch::IntegrationTest
     get "/client/pub_uuid", params: { uuid: "1234" }
     assert_response :not_found
   end
-#  test "pub_uuid" do
-#    get "/client/pub_uuid", params: { uuid: "11111111-1111-1111-1111-111111111111" }
-#    assert_response :success
-#  end
+  #  test "pub_uuid" do
+  #    get "/client/pub_uuid", params: { uuid: "11111111-1111-1111-1111-111111111111" }
+  #    assert_response :success
+  #  end
   test "regenerate_pub_uuid" do
     get "/client/regenerate_pub_uuid", params: { uuid: "1234" }
     assert_response :success

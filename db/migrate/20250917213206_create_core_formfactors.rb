@@ -4,7 +4,7 @@ class CreateCoreFormfactors < ActiveRecord::Migration[8.0]
       t.string :formfactor
 
       t.timestamps
-      t.index [:formfactor], name: "formfactor_idx", unique: true
+      t.index [ :formfactor ], name: "formfactor_idx", unique: true
     end
   end
 end
