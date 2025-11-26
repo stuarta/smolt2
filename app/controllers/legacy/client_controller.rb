@@ -8,6 +8,9 @@ class Legacy::ClientController < ApplicationController
 
     mapper = Core::HostPubMapping.new
     @pub_uuid = mapper.get_pub_uuid(params[:uuid])
+    if params[:host].length > 65535
+      Rails.logger.info("Submission for hw_uuid: #{params[:uuid]} is too large. Skipping")
+    end
     q = Core::Submission.create(hw_uuid: params[:uuid], added: false, data: params[:host])
     ProcessHostJob.perform_later q
   end
