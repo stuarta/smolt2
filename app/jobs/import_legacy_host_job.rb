@@ -2,7 +2,7 @@ class ImportLegacyHostJob < ApplicationJob
   queue_as :default
 
   def perform(legacy_submission)
-    Rails.logger.info("Importing submission for #{legacy_submission.hw_uuid} which arrived #{legacy_submission.arrival}")
+    Rails.logger.info("Importing submission id: #{legacy_submission.id}, hw_uuid: #{legacy_submission.hw_uuid} which arrived #{legacy_submission.arrival}")
     host = Legacy::Host.find_by(uuid: legacy_submission.hw_uuid)
     Core::HostPubMapping.find_or_create_by(uuid: host["uuid"], pub_uuid: host["pub_uuid"])
     s = Core::Submission.create(
