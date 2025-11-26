@@ -37,7 +37,7 @@ class Processor::HostProcessor
       platform = Core::Platform.find_or_create_by!(platform: host["platform"])
       vendor = Core::Vendor.find_or_create_by!(name: host["vendor"])
       runlevel = Core::RunLevel.find_or_create_by!(default_runlevel: host["default_runlevel"])
-      if host["os"].length > 255 # too big, bad data
+      if host["os"].nil? or host["os"].length > 255 # too big, bad data
         operating_system = Core::OperatingSystem.find_or_create_by!(os: "unknown")
       else
         operating_system = Core::OperatingSystem.find_or_create_by!(os: host["os"])
