@@ -1,5 +1,6 @@
 class Processor::DeviceProcessor
   def find_or_create_device!(device)
+    return nil if device["vendor_id"].nil? or device["device_id"].nil?
     begin
       device_bus = Core::DeviceBus.create!(name: device["bus"])
     rescue ActiveRecord::RecordNotUnique

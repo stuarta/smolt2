@@ -59,7 +59,9 @@ class Processor::HostProcessor
     host["devices"].each do |device|
       devp = Processor::DeviceProcessor.new
       dev = devp.find_or_create_device!(device)
-      h.devices << dev
+      if not dev.nil?
+        h.devices << dev
+      end
     end
     # Process filesystems
     host["fss"].each do |fs|
