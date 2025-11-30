@@ -138,7 +138,7 @@ class Processor::MythtvProcessor
 
   def process_mythtv_database!(mythtv_data)
     db = mythtv_data["features"]["database"]
-    return if db.nil? or db.empty?
+    return nil if db.nil? or db.empty?
     myth_db = Myth::Database.new
 
     db["schema"].each do |sk, sv|
