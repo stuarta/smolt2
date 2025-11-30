@@ -15,4 +15,10 @@ class Processor::MythtvProcessorTest < ActiveSupport::TestCase
     p = Processor::MythtvProcessor.new
     assert p.process_mythtv_database!(m).nil?
   end
+  test "database data" do
+    mj = file_fixture("mythtv.json").read
+    m = JSON.parse(mj)
+    p = Processor::MythtvProcessor.new
+    assert not p.process_mythtv_database!(m).nil?
+  end
 end
