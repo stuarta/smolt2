@@ -20,6 +20,7 @@ class Processor::MythtvProcessor
     f = mythtv_data["features"]
     myth_host = Myth::Host.new
     myth_host.uuid_id = myth_uuid.id
+    myth_host.arrival = mythtv_data["arrival"]
     mb = Myth::Branch.find_or_create_by(branch: "#{f["branch"]}")
     myth_host.branch_id = mb.id
     ml = Myth::Language.find_or_create_by(language: "#{f["language"]}")

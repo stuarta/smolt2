@@ -1,6 +1,7 @@
 class Processor::HostProcessor
   def process_host(host_raw)
     host = JSON.parse(host_raw.data)
+    host["distro_specific"]["mythtv"]["arrival"] = host_raw.arrival
     Rails.logger.debug "Processing host #{host["uuid"]}"
     hpm = Core::HostPubMapping.find_or_create_by(uuid: host["uuid"])
     h = Core::Host.find_by(host_pub_mapping_id: hpm.id)

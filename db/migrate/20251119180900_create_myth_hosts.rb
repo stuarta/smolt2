@@ -4,6 +4,7 @@ class CreateMythHosts < ActiveRecord::Migration[8.0]
       t.integer     :channelcount
       t.integer     :sourcecount
       t.float       :vtpertuner
+      t.timestamp   :arrival
 
       t.belongs_to  :uuid
 

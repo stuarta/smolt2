@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_01_175028) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_24_230652) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -333,6 +333,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_01_175028) do
     t.integer "channelcount"
     t.integer "sourcecount"
     t.float "vtpertuner"
+    t.timestamp "arrival"
     t.bigint "uuid_id"
     t.bigint "branch_id"
     t.bigint "country_id"
@@ -525,7 +526,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_01_175028) do
   add_foreign_key "core_hosts", "core_platforms", column: "platform_id"
   add_foreign_key "core_hosts", "core_run_levels", column: "run_level_id"
   add_foreign_key "core_hosts", "core_vendors", column: "vendor_id"
-  add_foreign_key "core_hosts", "myth_hosts"
   add_foreign_key "file_systems", "host", column: "id"
   add_foreign_key "myth_databases", "myth_db_versions", column: "db_version_id"
 end
