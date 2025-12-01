@@ -86,6 +86,7 @@ GEM
     concurrent-ruby (1.3.5)
     connection_pool (2.5.4)
     crass (1.0.6)
+    css-zero (3.1.0)
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
     date (3.4.1)
@@ -330,6 +331,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   brakeman
+  css-zero (~> 3.1)
   cssbundling-rails
   debug
   jbuilder
