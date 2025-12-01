@@ -25,4 +25,6 @@ class Myth::Host < ApplicationRecord
   has_one :historical, dependent: :destroy
   has_one :playback_profile, dependent: :destroy
   has_one :scheduler, dependent: :destroy
+
+  has_one :core_host, class_name: "Core::Host", foreign_key: "id"
 end

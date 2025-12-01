@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_24_230652) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_01_175028) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.timestamp "arrival", default: -> { "current_timestamp()" }
     t.integer "added", null: false
@@ -122,11 +122,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_24_230652) do
     t.bigint "formfactor_id", null: false
     t.bigint "language_id", null: false
     t.bigint "run_level_id", null: false
+    t.bigint "myth_host_id", null: false
     t.index ["cpu_id"], name: "index_core_hosts_on_cpu_id"
     t.index ["formfactor_id"], name: "index_core_hosts_on_formfactor_id"
     t.index ["host_pub_mapping_id"], name: "index_core_hosts_on_host_pub_mapping_id"
     t.index ["kernel_version_id"], name: "index_core_hosts_on_kernel_version_id"
     t.index ["language_id"], name: "index_core_hosts_on_language_id"
+    t.index ["myth_host_id"], name: "index_core_hosts_on_myth_host_id"
     t.index ["operating_system_id"], name: "index_core_hosts_on_operating_system_id"
     t.index ["platform_id"], name: "index_core_hosts_on_platform_id"
     t.index ["run_level_id"], name: "index_core_hosts_on_run_level_id"
@@ -523,6 +525,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_24_230652) do
   add_foreign_key "core_hosts", "core_platforms", column: "platform_id"
   add_foreign_key "core_hosts", "core_run_levels", column: "run_level_id"
   add_foreign_key "core_hosts", "core_vendors", column: "vendor_id"
+  add_foreign_key "core_hosts", "myth_hosts"
   add_foreign_key "file_systems", "host", column: "id"
   add_foreign_key "myth_databases", "myth_db_versions", column: "db_version_id"
 end

@@ -82,7 +82,8 @@ class Processor::HostProcessor
     end
     # Process MythTV specific data
     m = Processor::MythtvProcessor.new
-    m.process_mythtv!(h, host["distro_specific"]["mythtv"])
+    myth_host = m.process_mythtv!(h, host["distro_specific"]["mythtv"])
+    h.myth_host_id = myth_host.id
     Rails.logger.debug "Reached the end of processing"
 
     h.save!
