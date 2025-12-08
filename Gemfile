@@ -8,7 +8,7 @@ gem "propshaft"
 # Use mysql as the database for Active Record
 gem "mysql2"
 # Use Puma as the app server
-gem "puma", "~> 6"
+gem "puma", ">= 6"
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
