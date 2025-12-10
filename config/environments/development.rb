@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require "./lib/middleware/chrome_devtools"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -80,4 +81,7 @@ Rails.application.configure do
   # Solid Queue
   config.active_job.queue_adapter = :solid_queue
   config.solid_queue.connects_to = { database: { writing: :queue } }
+
+  # Middleware to handle chrome devtools
+  config.middleware.use Middleware::ChromeDevtools
 end
