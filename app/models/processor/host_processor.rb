@@ -60,6 +60,7 @@ class Processor::HostProcessor
     host["devices"].each do |device|
       devp = Processor::DeviceProcessor.new
       dev = devp.find_or_create_device!(device)
+      dev.updated_at = host_raw.arrival
       if not dev.nil?
         h.devices << dev
       end
