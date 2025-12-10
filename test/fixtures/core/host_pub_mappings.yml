@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   uuid: '11111111-1111-1111-1111-111111111111'
   pub_uuid: 'pub_11111111-1111-1111-1111-111111111111'
