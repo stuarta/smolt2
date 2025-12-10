@@ -75,8 +75,7 @@ class Processor::MythtvProcessor
         if r_stat.key?("size")
           m_recstat["size"] = r_stat["size"]
         end
-        m_recstat.valid? # trigger validations so we can avoid bad data
-        if not (m_recstat.errors[:size].any? or m_recstat.errors[:time].any?)
+        if m_recstat.valid? # trigger validations so we can avoid bad data
           myth_host.recordings << m_recstat
         end
       end
