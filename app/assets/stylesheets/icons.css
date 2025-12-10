@@ -32,6 +32,7 @@ img.icon {
 .icon--chevrons-up-down { --svg: url("chevrons-up-down.svg"); }
 .icon--circle-alert { --svg: url("circle-alert.svg"); }
 .icon--circle-check { --svg: url("circle-check.svg"); }
+.icon--circle-small { --svg: url("circle-small.svg"); }
 .icon--copy { --svg: url("copy.svg"); }
 .icon--download { --svg: url("download.svg"); }
 .icon--ellipsis { --svg: url("ellipsis.svg"); }
