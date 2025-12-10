@@ -11,11 +11,13 @@
     </tr>
   </thead>
   <tbody>
+    <% if not @hosts.nil? %>
     <% @hosts.each do |host| %>
     <tr>
       <td><%= link_to host.host_pub_mapping.pub_uuid, reports_view_profile_path(uuid: host.host_pub_mapping.pub_uuid) %></td>
       <td><%= host.updated_at %></td>
     </tr>
+    <% end %>
     <% end %>
   </tbody>
 </div>
