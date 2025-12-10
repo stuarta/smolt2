@@ -33,11 +33,13 @@
     </tr>
   </thead>
   <tbody>
+    <% if not @devices.nil? %>
     <% @devices.each do |device| %>
     <tr>
       <td><%= link_to device.description, reports_view_device_path(id: device.id) %></td>
       <td><%= device.updated_at %></td>
     </tr>
+    <% end %>
     <% end %>
   </tbody>
 </div>
