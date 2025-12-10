@@ -51,7 +51,9 @@ class Myth::HostTest < ActiveSupport::TestCase
       if r_stat.key?("size")
         m_recstat["size"] = r_stat["size"]
       end
-      myth_host.recordings << m_recstat
+      if m_recstat.valid?
+        myth_host.recordings << m_recstat
+      end
     end
     # Scheduler, optional
     if not f["scheduler"].empty?
