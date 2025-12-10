@@ -24,12 +24,14 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="header-layout">
-    <header id="header">
-      <div class="container">
-        <h1 class="font-bold text-2xl">Smolt2</h1>
-      </div>
+  <body class="sidebar-layout">
+    <header class="justify-between" id="header">
+      <%= render "header_menu" %>
     </header>
+
+    <aside id="sidebar">
+      <%= render "sidebar_menu" %>
+    </aside>
 
     <main id="main">
       <% if notice.present? %>

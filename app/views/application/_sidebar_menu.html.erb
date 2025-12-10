@@ -1,0 +1,50 @@
+<div class="sidebar-menu">
+  <div class="sidebar-menu__content">
+    <div class="sidebar-menu__group">
+      <div class="sidebar-menu__group-label">Platform</div>
+      <div class="sidebar-menu__items">
+        <details open>
+          <summary class="btn sidebar-menu__button">
+            <span class="icon icon--circle-small" aria-hidden="true"></span>
+            <span class="overflow-ellipsis">Reports</span>
+          </summary>
+          <nav class="sidebar-menu__sub">
+            <%= link_to "Recent", reports_recent_path, class: "btn sidebar-menu__button" %>
+            <%= link_to "Search", reports_search_path, class: "btn sidebar-menu__button" %>
+          </nav>
+        </details>
+        <details open>
+          <summary class="btn sidebar-menu__button">
+            <span class="icon icon--circle-small" aria-hidden="true"></span>
+            <span class="overflow-ellipsis">Stats</span>
+          </summary>
+          <nav class="sidebar-menu__sub">
+            <%= link_to "Host Stats", stats_hosts_path, class: "btn sidebar-menu__button", aria: { current: "page" } %>
+            <%= link_to "Device Stats", stats_devices_path, class: "btn sidebar-menu__button" %>
+          </nav>
+        </details>
+      </div>
+    </div>
+    <div class="sidebar-menu__group">
+      <div class="sidebar-menu__group-label">MythTV Sites</div>
+      <nav class="sidebar-menu__items">
+        <%= link_to "https://www.mythtv.org/wiki", class: "btn sidebar-menu__button" do %>
+          <span class="icon icon--circle-small" aria-hidden="true"></span>
+          <span class="overflow-ellipsis">Wiki</span>
+        <% end %>
+        <%= link_to "https://forum.mythtv.org/", class: "btn sidebar-menu__button" do %>
+          <span class="icon icon--circle-small" aria-hidden="true"></span>
+          <span class="overflow-ellipsis">Forum</span>
+        <% end %>
+        <%= link_to "https://github.com/MythTV/mythtv", class: "btn sidebar-menu__button" do %>
+          <span class="icon icon--circle-small" aria-hidden="true"></span>
+          <span class="overflow-ellipsis">MythTV Github</span>
+        <% end %>
+        <%= tag.a class: "btn sidebar-menu__button", aria: { disabled: true } do %>
+          <span class="icon icon--ellipsis" aria-hidden="true"></span>
+          <span class="overflow-ellipsis">More</span>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>
