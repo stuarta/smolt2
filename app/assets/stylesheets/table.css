@@ -1,5 +1,5 @@
 :where(.table) {
-  caption-side: bottom;
+  caption-side: top;
   font-size: var(--text-sm);
   inline-size: var(--size-full);
 
@@ -10,10 +10,12 @@
 
   thead {
     color: var(--color-text);
+    background: var(--gray-300);
   }
 
   tbody tr {
     border-block-start-width: var(--border);
+    background: var(--gray-100);
   }
 
   tr:hover {
