@@ -1,0 +1,41 @@
+<div class="gap">
+  <h1 class="font-bold text-4xl">Recent Profiles & Devices</h1>
+  <table class="table">
+  <caption>
+    Recently submitted profiles
+  </caption>
+  <thead>
+    <tr>
+      <th class="font-bold">Public UUID</th>
+      <th class="font-bold">Last Update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hosts.each do |host| %>
+    <tr>
+      <td><%= link_to host.host_pub_mapping.pub_uuid, reports_view_profile_path(uuid: host.host_pub_mapping.pub_uuid) %></td>
+      <td><%= host.updated_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</div>
+<div class="gap">
+  <table class="table">
+  <caption>
+    Recently submitted devices
+  </caption>
+  <thead>
+    <tr>
+      <th class="font-bold">Device Description</th>
+      <th class="font-bold">Date Added</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @devices.each do |device| %>
+    <tr>
+      <td><%= link_to device.description, reports_view_device_path(id: device.id) %></td>
+      <td><%= device.updated_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</div>
