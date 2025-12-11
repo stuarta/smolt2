@@ -1,8 +1,66 @@
 <div>
-  <h1 class="font-bold text-4xl">Reports#view_profile</h1>
   <% if @host.nil? %>
     <p>Host not found</p>
   <% else %>
-  <%= @host.to_json %>
+  <div class="gap">
+    <h1 class="font-bold text-4xl"><%= @host.host_pub_mapping.pub_uuid %></h1>
+    <table class="table">
+      <caption>
+        Host Overview
+      </caption>
+    <tbody>
+      <tr>
+        <th>Public UUID</th>
+        <td><%= link_to @host.host_pub_mapping.pub_uuid, reports_view_profile_path(uuid: @host.host_pub_mapping.pub_uuid) %></td>
+      </tr>
+      <tr>
+        <th>Operating System</th>
+        <td><%= link_to @host.operating_system.os, "#" %></td>
+      </tr>
+      <tr>
+        <th>Platform</th>
+        <td><%= link_to @host.platform.platform, "#" %></td>
+      </tr>
+      <tr>
+        <th>System Vendor</th>
+        <td><%= link_to @host.vendor.name, "#" %></td>
+      </tr>
+      <tr>
+        <th>System Model</th>
+        <td><%= link_to "TODO: model needs adding to Core::Host", "#" %></td>
+      </tr>
+      <tr>
+        <th>Kernel</th>
+        <td><%= link_to @host.kernel_version.kernel_version, "#" %></td>
+      </tr>
+      <tr>
+        <th>Formfactor</th>
+        <td><%= link_to @host.formfactor.formfactor, "#" %></td>
+      </tr>
+      <tr>
+        <th>Last Modified</th>
+        <td><%= @host.updated_at %></td>
+      </tr>
+    </tbody>
+    <table class="table">
+      <caption>
+        Devices
+      </caption>
+      <thead>
+        <tr>
+          <th>Device</th>
+          <th>Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @host.devices.each do |device| %>
+        <tr>
+          <td><%= device.description %></td>
+          <td><%= device.device_class.name %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   <% end %>
 </div>

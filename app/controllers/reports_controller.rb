@@ -14,12 +14,12 @@ class ReportsController < ApplicationController
       if params[:uuid].start_with?("pub_")
         hpm = Core::HostPubMapping.where(pub_uuid: params[:uuid]).last
         if not hpm.nil?
-          Core::Host.where(host_pub_mapping_id: hpm.id)
+          Core::Host.where(host_pub_mapping_id: hpm.id).last
         end
       else
         hpm = Core::HostPubMapping.where(uuid: params[:uuid]).last
         if not hpm.nil?
-          Core::Host.where(host_pub_mapping_id: hpm.id)
+          Core::Host.where(host_pub_mapping_id: hpm.id).last
         end
       end
     else
