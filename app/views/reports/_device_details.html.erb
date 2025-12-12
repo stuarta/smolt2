@@ -1,0 +1,39 @@
+<table class="table">
+  <caption>
+    Device Details
+  </caption>
+  <tbody>
+    <tr>
+      <th>Description</th>
+      <td><%= device.description %></td>
+    </tr>
+    <tr>
+      <th>Vendor ID</th>
+      <td><%= device.vendor_id %></td>
+    </tr>
+    <tr>
+      <th>Device ID</th>
+      <td><%= device.device_id %></td>
+    </tr>
+    <tr>
+      <th>Subsystem Vendor ID</th>
+      <td><%= device.subsys_vendor_id %></td>
+    </tr>
+    <tr>
+      <th>Subsystem Device ID</th>
+      <td><%= device.subsys_device_id %></td>
+    </tr>
+    <tr>
+      <th>Device Driver</th>
+      <td><%= device.device_driver %></td>
+    </tr>
+    <tr>
+      <th>Device Bus</th>
+      <td><%= device.device_bus.name %></td>
+    </tr>
+    <tr>
+      <th>Device Class</th>
+      <td><%= device.device_class.name %></td>
+    </tr>
+  </tbody>
+</table>

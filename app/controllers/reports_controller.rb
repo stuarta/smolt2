@@ -34,6 +34,7 @@ class ReportsController < ApplicationController
   end
 
   def view_device
+    @device = Core::Device.find(params[:id])
   end
 
   def view_devices
