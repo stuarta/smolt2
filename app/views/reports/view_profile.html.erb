@@ -22,6 +22,10 @@
         <td><%= link_to @host.platform.platform, "#" %></td>
       </tr>
       <tr>
+        <th>CPU</th>
+        <td><%= render partial: "cpu_details", locals: { cpu: @host.cpu } %></td>
+      </tr>
+      <tr>
         <th>System Vendor</th>
         <td><%= link_to @host.vendor.name, "#" %></td>
       </tr>
