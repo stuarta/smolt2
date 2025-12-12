@@ -1,0 +1,49 @@
+:where(.accordion) {
+  details {
+    border-block-end-width: var(--border);
+    font-size: var(--text-sm);
+
+    &::details-content {
+      block-size: 0;
+      overflow: hidden;
+      transition-behavior: allow-discrete;
+      transition-duration: var(--time-200);
+      transition-property: content-visibility block-size;
+    }
+
+    &[open]::details-content {
+      block-size: auto;
+    }
+  }
+
+  summary {
+    align-items: center;
+    cursor: default;
+    display: flex;
+    font-weight: var(--font-medium);
+    padding-block: var(--size-4);
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus-visible {
+      outline: var(--border-2) auto var(--color-selected-dark);
+    }
+
+    &::after {
+      background-color: currentColor;
+      block-size: var(--size-4);
+      content: "";
+      inline-size: var(--size-4);
+      margin-inline-start: auto;
+      mask-image: url("chevron-down.svg");
+      mask-size: cover;
+      transition: transform var(--time-200);
+    }
+
+    details[open] > &::after {
+      transform: var(--rotate-180);
+    }
+  }
+}
