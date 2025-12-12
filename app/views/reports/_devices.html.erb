@@ -1,0 +1,19 @@
+<table class="table">
+    <caption>
+    Devices
+    </caption>
+    <thead>
+    <tr>
+        <th>Device</th>
+        <th>Class</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% devices.each do |device| %>
+    <tr>
+        <td><%= device.description %></td>
+        <td><%= device.device_class.name %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
