@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_12_234142) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_13_001033) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "added", null: false
     t.timestamp "arrival", default: -> { "current_timestamp()" }
@@ -110,6 +110,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_12_234142) do
     t.bigint "host_pub_mapping_id", null: false
     t.bigint "kernel_version_id", null: false
     t.bigint "language_id", null: false
+    t.bigint "myth_host_id", null: false
     t.integer "num_cpus"
     t.bigint "operating_system_id", null: false
     t.bigint "platform_id", null: false
@@ -127,6 +128,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_12_234142) do
     t.index ["host_pub_mapping_id"], name: "index_core_hosts_on_host_pub_mapping_id"
     t.index ["kernel_version_id"], name: "index_core_hosts_on_kernel_version_id"
     t.index ["language_id"], name: "index_core_hosts_on_language_id"
+    t.index ["myth_host_id"], name: "index_core_hosts_on_myth_host_id"
     t.index ["operating_system_id"], name: "index_core_hosts_on_operating_system_id"
     t.index ["platform_id"], name: "index_core_hosts_on_platform_id"
     t.index ["run_level_id"], name: "index_core_hosts_on_run_level_id"
