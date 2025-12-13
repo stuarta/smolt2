@@ -1,3 +1,4 @@
+<%# locals: (devices:, show_class: false, show_recent: false) %>
 <table class="table">
     <caption>
     Devices
@@ -5,14 +6,14 @@
     <thead>
     <tr>
         <th>Device</th>
-        <th>Class</th>
+        <th><%= show_class_or_arrival_header(show_class, show_recent) %></th>
     </tr>
     </thead>
     <tbody>
     <% devices.each do |device| %>
     <tr>
-        <td><%= device.description %></td>
-        <td><%= device.device_class.name %></td>
+        <td><%= link_to device.description, reports_view_device_path(id: device.id) %></td>
+        <td><%= show_class_or_arrival(device,show_class,show_recent) %></td>
     </tr>
     <% end %>
     </tbody>

@@ -22,24 +22,5 @@
   </tbody>
 </div>
 <div class="gap">
-  <table class="table">
-  <caption>
-    Recently submitted devices
-  </caption>
-  <thead>
-    <tr>
-      <th class="font-bold">Device Description</th>
-      <th class="font-bold">Date Added</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if not @devices.nil? %>
-    <% @devices.each do |device| %>
-    <tr>
-      <td><%= link_to device.description, reports_view_device_path(id: device.id) %></td>
-      <td><%= device.updated_at %></td>
-    </tr>
-    <% end %>
-    <% end %>
-  </tbody>
+  <%= render partial: "devices", locals: { devices: @devices, show_recent: true } %>
 </div>

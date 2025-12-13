@@ -6,4 +6,20 @@ module ReportsHelper
       "NONE"
     end
   end
+  def show_class_or_arrival(device, show_class, show_recent)
+    if show_class
+      "#{device.device_class.name}"
+    elsif show_recent
+      "#{device.updated_at}"
+    else
+      ""
+    end
+  end
+  def show_class_or_arrival_header(show_class, show_recent)
+    if show_class
+      "Class"
+    else
+      "Arrived at"
+    end
+  end
 end
