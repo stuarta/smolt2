@@ -9,19 +9,19 @@
     </tr>
     <tr>
       <th>Vendor ID</th>
-      <td><%= device.vendor_id %></td>
+      <td><%= device_to_hex(device.vendor_id) %></td>
     </tr>
     <tr>
       <th>Device ID</th>
-      <td><%= device.device_id %></td>
+      <td><%= device_to_hex(device.device_id) %></td>
     </tr>
     <tr>
       <th>Subsystem Vendor ID</th>
-      <td><%= device.subsys_vendor_id %></td>
+      <td><%= device_to_hex(device.subsys_vendor_id) %></td>
     </tr>
     <tr>
       <th>Subsystem Device ID</th>
-      <td><%= device.subsys_device_id %></td>
+      <td><%= device_to_hex(device.subsys_device_id) %></td>
     </tr>
     <tr>
       <th>Device Driver</th>
