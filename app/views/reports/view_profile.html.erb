@@ -23,7 +23,7 @@
       </tr>
       <tr>
         <th>CPU</th>
-        <td><%= render partial: "cpu_details", locals: { cpu: @host.cpu } %></td>
+        <td><%= render partial: "cpu_details", locals: { cpu: @host.cpu, num_cpus: @host.num_cpus } %></td>
       </tr>
       <tr>
         <th>System Vendor</th>
