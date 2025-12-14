@@ -47,6 +47,6 @@
       </tr>
     </tbody>
   </div>
-  <%= render partial: "devices", locals: { devices: @host.devices, show_class: true } %>
+  <%= render partial: "devices", locals: { devices: @host.devices.order(:description), show_class: true } %>
   <% end %>
 </div>
