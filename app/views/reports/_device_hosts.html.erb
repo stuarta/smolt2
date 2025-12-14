@@ -8,7 +8,7 @@
     <th>System</th>
   </thead>
   <tbody>
-    <% device.hosts.each do |host| %>
+    <% device.hosts.uniq.each do |host| %>
       <tr>
         <td><%= link_to host.host_pub_mapping.pub_uuid, reports_view_profile_path(uuid: host.host_pub_mapping.pub_uuid) %></td>
         <td><%= host.vendor.name %></td>
