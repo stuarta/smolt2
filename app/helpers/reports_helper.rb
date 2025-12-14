@@ -1,6 +1,6 @@
 module ReportsHelper
   def device_to_hex(d)
-    if d
+    if d and d != -1
       "0x#{d.to_s(16)}"
     else
       "NONE"
