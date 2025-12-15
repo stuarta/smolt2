@@ -57,13 +57,18 @@ class Processor::HostProcessor
     h.operating_system_id = operating_system.id
     h.language_id = language.id
     # Create Devices and link back to host
-    host["devices"].each do |device|
-      devp = Processor::DeviceProcessor.new
-      dev = devp.find_or_create_device!(device)
-      dev.updated_at = host_raw.arrival
-      if not dev.nil?
-        h.devices << dev
+    begin
+      host["devices"].each do |device|
+        devp = Processor::DeviceProcessor.new
+        dev = devp.find_or_create_device!(device)
+        dev.updated_at = host_raw.arrival
+        if not dev.nil?
+          h.devices << dev
+        end
       end
+    rescue ActiveRecord::Deadlocked
+      sleep 0.2
+      retry
     end
     # Process filesystems
     host["fss"].each do |fs|
@@ -88,7 +93,12 @@ class Processor::HostProcessor
     h.myth_host_id = myth_host.id
     Rails.logger.debug "Reached the end of processing"
 
-    h.save!
+    begin
+      h.save!
+    rescue ActiveRecord::Deadlocked
+      sleep 0.2
+      retry
+    end
     # Return host object
     h
   end
