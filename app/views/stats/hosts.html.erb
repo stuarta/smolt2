@@ -1,4 +1,4 @@
 <div>
-  <h1 class="font-bold text-4xl">Stats#hosts</h1>
-  <p>Find me in app/views/stats/hosts.html.erb</p>
+  <h1 class="font-bold text-4xl">Host Summary</h1>
+  <%= render partial: "host_summary", locals: { host_stats: @host_stats } %>
 </div>

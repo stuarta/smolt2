@@ -1,0 +1,31 @@
+<table class="table">
+  <caption>
+    Summary of Hosts
+  </caption>
+  <tbody>
+    <tr>
+      <th>Total Registered Hosts</th>
+      <td><%= host_stats["total"] %></td>
+    </tr>
+    <tr>
+      <th>Active Hosts</th>
+      <td><%= host_stats["active"] %></td>
+    </tr>
+    <tr>
+      <th>Total Registered Devices</th>
+      <td><%= host_stats["device_total"] %></td>
+    </tr>
+    <tr>
+      <th>Total Bogomips</th>
+      <td><%= host_stats["bogomips"] %></td>
+    </tr>
+    <tr>
+      <th>Total Processors</th>
+      <td><%= host_stats["processors"] %></td>
+    </tr>
+    <tr>
+      <th>Total Mhz</th>
+      <td><%= host_stats["mhz"] %></td>
+    </tr>
+  </tbody>
+</table>
