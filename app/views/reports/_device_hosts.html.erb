@@ -1,6 +1,6 @@
 <table class="table">
   <caption>
-    Profiles with this device
+    Most recent profiles with this device
   </caption>
   <thead>
     <th>Public UUID</th>
@@ -8,7 +8,7 @@
     <th>System</th>
   </thead>
   <tbody>
-    <% device.hosts.uniq.each do |host| %>
+    <% device.unique_hosts(50).each do |host| %>
       <tr>
         <td><%= link_to host.host_pub_mapping.pub_uuid, reports_view_profile_path(uuid: host.host_pub_mapping.pub_uuid) %></td>
         <td><%= host.vendor.name %></td>
