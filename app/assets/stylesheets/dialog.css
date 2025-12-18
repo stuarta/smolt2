@@ -1,0 +1,53 @@
+.dialog {
+  background-color: var(--color-bg);
+  border-radius: var(--rounded-lg);
+  border-width: var(--border);
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text);
+  inline-size: var(--size-full);
+  margin: auto;
+  max-inline-size: var(--dialog-size, var(--max-i-lg));
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, .5);
+  }
+
+  /* Setup transition */
+  transition-behavior: allow-discrete;
+  transition-duration: var(--time-200);
+  transition-property: display, overlay, opacity, transform;
+
+  &::backdrop {
+    transition-behavior: allow-discrete;
+    transition-duration: var(--time-150);
+    transition-property: display, overlay, opacity;
+  }
+
+  /* Exit stage to */
+  & { opacity: 0; transform: var(--scale-95); }
+  &::backdrop { opacity: 0; }
+
+  /* On stage */
+  &[open] { opacity: 1; transform: var(--scale-100); }
+  &[open]::backdrop { opacity: 1; }
+
+  /* Enter stage from */
+  @starting-style {
+    &[open] { opacity: 0; transform: var(--scale-95); }
+    &[open]::backdrop { opacity: 0; }
+  }
+
+  @media (width < 40rem) {
+    border-radius: 0;
+  }
+}
+
+.dialog__content {
+  padding: var(--size-6);
+}
+
+.dialog__close {
+  inset-block-start: var(--size-3);
+  inset-inline-end:  var(--size-3);
+  position: absolute;
+}

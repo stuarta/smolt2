@@ -7,6 +7,9 @@ import { application } from "./application"
 import ColorSchemeController from "./color_scheme_controller"
 application.register("color-scheme", ColorSchemeController)
 
+import DialogController from "./dialog_controller"
+application.register("dialog", DialogController)
+
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)
 
