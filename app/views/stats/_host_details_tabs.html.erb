@@ -1,0 +1,59 @@
+<div class="tabs" data-controller="tabs">
+  <div class="tabs__list" data-action="keydown.left->tabs#prev keydown.right->tabs#next" role="tablist">
+    <button type="button" id="trigger_archs"  class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_archs" aria-selected="true">Archs</button>
+    <button type="button" id="trigger_os" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_os" aria-selected="false">OS</button>
+    <button type="button" id="trigger_runlevel" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_runlevel" aria-selected="false">Runlevel</button>
+    <button type="button" id="trigger_language" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_language" aria-selected="false">Language</button>
+    <button type="button" id="trigger_vendor" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_vendor" aria-selected="false">Vendor</button>
+    <button type="button" id="trigger_model" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_model" aria-selected="false">Model</button>
+    <button type="button" id="trigger_ram" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_ram" aria-selected="false">RAM</button>
+    <button type="button" id="trigger_swap" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_swap" aria-selected="false">Swap</button>
+    <button type="button" id="trigger_cpu" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_cpu" aria-selected="false">CPU</button>
+    <button type="button" id="trigger_kernel" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_kernel" aria-selected="false">Kernel</button>
+    <button type="button" id="trigger_filesystems" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_filesystems" aria-selected="false">Filesystems</button>
+  </div>
+
+  <div id="tab_archs" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_archs">
+    <%= render "tab_archs" %>
+  </div>
+
+  <div hidden id="tab_os" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_os">
+    <%= render "tab_os" %>
+  </div>
+
+  <div hidden id="tab_runlevel" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_runlevel">
+    <%= render "tab_runlevel" %>
+  </div>
+
+  <div hidden id="tab_language" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_language">
+    <%= render "tab_language" %>
+  </div>
+
+  <div hidden id="tab_vendor" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_vendor">
+    <%= render "tab_vendor" %>
+  </div>
+
+  <div hidden id="tab_model" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_model">
+    <%= render "tab_model" %>
+  </div>
+
+  <div hidden id="tab_ram" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_ram">
+    <%= render "tab_ram" %>
+  </div>
+
+  <div hidden id="tab_swap" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_swap">
+    <%= render "tab_swap" %>
+  </div>
+
+  <div hidden id="tab_cpu" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_cpu">
+    <%= render "tab_cpu" %>
+  </div>
+
+  <div hidden id="tab_kernel" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_kernel">
+    <%= render "tab_kernel" %>
+  </div>
+
+  <div hidden id="tab_filesystems" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_filesystems">
+    <%= render "tab_filesystems" %>
+  </div>
+</div>

@@ -1,4 +1,7 @@
 <div>
   <h1 class="font-bold text-4xl">Host Summary</h1>
   <%= render partial: "host_summary", locals: { host_stats: @host_stats } %>
+  <br>
+  <p>Active Host Stats</p>
+  <%= render partial: "host_details_tabs" %>
 </div>
