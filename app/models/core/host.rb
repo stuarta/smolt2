@@ -12,4 +12,8 @@ class Core::Host < ApplicationRecord
   belongs_to  :language
   belongs_to  :run_level
   belongs_to  :myth_host, class_name: "Myth::Host"
+
+  scope :recent, -> {
+    where("updated_at >= ?", Date.today - 90)
+  }
 end
