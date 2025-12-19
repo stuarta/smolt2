@@ -2,6 +2,7 @@
   caption-side: top;
   font-size: var(--text-sm);
   inline-size: var(--size-full);
+  table-layout: fixed;
 
   caption {
     color: var(--color-text-subtle);
