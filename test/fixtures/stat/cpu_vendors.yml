@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: vendor1
+  count: 10
+
+two:
+  name: vendor2
+  count: 20
