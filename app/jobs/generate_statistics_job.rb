@@ -17,7 +17,6 @@ class GenerateStatisticsJob < ApplicationJob
     os_recent = hosts_recent.map(&:operating_system_id).uniq
     Core::OperatingSystem.find(os_recent).each do |os|
       @detailed_stats["os"][os.os] = hosts_recent.select { |h| h.operating_system_id == os.id }.count
-      # @detailed_stats["os"][os.os] = hosts_recent.where("operating_system_id = ?", os.id).pluck(:id).count
     end
 
     # Runlevel
@@ -25,7 +24,6 @@ class GenerateStatisticsJob < ApplicationJob
     runlevel_recent = hosts_recent.map(&:run_level_id).uniq
     Core::RunLevel.find(runlevel_recent).each do |rl|
       @detailed_stats["runlevel"][rl.default_runlevel] = hosts_recent.select { |h| h.run_level_id == rl.id }.count
-      # @detailed_stats["runlevel"][rl.default_runlevel] = hosts_recent.where("run_level_id = ?", rl.id).pluck(:id).count
     end
 
     # Language
@@ -33,7 +31,6 @@ class GenerateStatisticsJob < ApplicationJob
     language_recent = hosts_recent.map(&:language_id).uniq
     Core::Language.find(language_recent).each do |language|
       @detailed_stats["language"][language.language] = hosts_recent.select { |h| h.language_id == language.id }.count
-      # @detailed_stats["language"][language.language] = hosts_recent.where("language_id = ?", language.id).pluck(:id).count
     end
 
     # Vendors
@@ -41,7 +38,6 @@ class GenerateStatisticsJob < ApplicationJob
     vendor_recent = hosts_recent.map(&:vendor_id).uniq
     Core::Vendor.find(vendor_recent).each do |vendor|
       @detailed_stats["vendor"][vendor.name] = hosts_recent.select { |h| h.vendor_id == vendor.id }.count
-      # @detailed_stats["vendor"][vendor.name] = hosts_recent.where("vendor_id = ?", vendor.id).pluck(:id).count
     end
 
     # Models
@@ -49,7 +45,6 @@ class GenerateStatisticsJob < ApplicationJob
     model_recent = hosts_recent.map(&:system).uniq
     model_recent.each do |model|
       @detailed_stats["model"][model] = hosts_recent.select { |h| h.system == model }.count
-      # @detailed_stats["model"][model] = hosts_recent.where("system = ?", model).pluck(:id).count
     end
 
     # RAM
@@ -66,13 +61,11 @@ class GenerateStatisticsJob < ApplicationJob
     cpu_recent = hosts_recent.map(&:cpu_id).uniq
     Core::Cpu.find(cpu_recent).each do |cpu|
       @detailed_stats["cpu"]["vendor"][cpu.cpu_vendor] = hosts_recent.select { |h| h.cpu_id == cpu.id }.count
-      # @detailed_stats["cpu"]["vendor"][cpu.cpu_vendor] = hosts_recent.where("cpu_id = ?", cpu.id).pluck(:id).count
     end
     @detailed_stats["cpu"]["num_cpus"] = {}
     num_cpus_recent = hosts_recent.map(&:num_cpus).uniq
     num_cpus_recent.each do |num_cpus|
       @detailed_stats["cpu"]["num_cpus"][num_cpus] = hosts_recent.select { |h| h.num_cpus == num_cpus }.count
-      # @detailed_stats["cpu"]["num_cpus"][num_cpus] = hosts_recent.where("num_cpus = ?", num_cpus).pluck(:id).count
     end
 
     # Kernel
@@ -80,14 +73,12 @@ class GenerateStatisticsJob < ApplicationJob
     kernel_recent = hosts_recent.map(&:kernel_version_id).uniq
     Core::KernelVersion.find(kernel_recent).each do |kernel|
       @detailed_stats["kernel"][kernel.kernel_version] = hosts_recent.select { |h| h.kernel_version_id == kernel.id }.count
-      # @detailed_stats["kernel"][kernel.kernel_version] = hosts_recent.where("kernel_version_id = ?", kernel.id).pluck(:id).count
     end
 
     # Filesystems
     @detailed_stats["filesystems"] = {}
     @detailed_stats["filesystems"]["fs_type"] = {}
     filesystem_recent = Core::Filesystem.where("host_id in (?)", hosts_recent.map(&:id)).map(&:fs_type).uniq
-    # filesystem_recent = Core::Filesystem.recent.distinct.pluck(:fs_type)
     filesystem_recent.each do |fs_type|
       @detailed_stats["filesystems"]["fs_type"][fs_type] = 0
     end
@@ -95,7 +86,6 @@ class GenerateStatisticsJob < ApplicationJob
       filesystem_recent.each do |fs_type|
         # for each host, and each recent fs_type count up the occurances
         @detailed_stats["filesystems"]["fs_type"][fs_type] += host.file_systems.select { |fs| fs.fs_type == fs_type }.count
-        # @detailed_stats["filesystems"]["fs_type"][fs_type] += host.file_systems.where("fs_type = ?", fs_type).count
       end
     end
     @detailed_stats["filesystems"]["size_map"] = {}
