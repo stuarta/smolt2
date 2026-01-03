@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Ubuntu
+  count: 200
+
+two:
+  name: Fedora
+  count: 50
