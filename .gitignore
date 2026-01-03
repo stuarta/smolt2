@@ -12,6 +12,9 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore old smoon2-schema
+/db/smoon2-schema.sql
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -37,3 +40,4 @@
 
 # VSCode workspace
 *workspace
+.aider*
