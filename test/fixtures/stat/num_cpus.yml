@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  num_cpus: 8
+  count: 10
+
+two:
+  num_cpus: 4
+  count: 20
