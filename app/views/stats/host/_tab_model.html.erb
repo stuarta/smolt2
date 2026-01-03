@@ -1,1 +1,9 @@
-Model
+<table class="table">
+  <thead>
+    <th>Model</th>
+    <th>Count</th>
+    <th>% of total</th>
+    <th></th>
+  </thead>
+  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["model"] }%>
+</table>

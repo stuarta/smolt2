@@ -1,1 +1,19 @@
-CPU
+<table class="table">
+  <thead>
+    <th>CPU Vendors</th>
+    <th>Count</th>
+    <th>% of total</th>
+    <th></th>
+  </thead>
+  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["cpu"]["vendor"] }%>
+</table>
+<br>
+<table class="table">
+  <thead>
+    <th>Number of CPUs</th>
+    <th>Count</th>
+    <th>% of total</th>
+    <th></th>
+  </thead>
+  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["cpu"]["num_cpus"] }%>
+</table>

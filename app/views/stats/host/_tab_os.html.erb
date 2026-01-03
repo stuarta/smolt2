@@ -1,1 +1,10 @@
-Operating Systems
+<table class="table">
+  <thead>
+    <th>Operating Systems</th>
+    <th>Count</th>
+    <th>% of total</th>
+    <th></th>
+  </thead>
+  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["os"] }%>
+</table>
+<!-- TODO: switch this to detailed stats with accordions -->

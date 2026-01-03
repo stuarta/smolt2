@@ -14,6 +14,10 @@ namespace :mythtv do
     end
     jobs.in_groups_of(1000, false) { |j| ActiveJob.perform_all_later(j) }
   end
+  desc "Generate statistics"
+  task genstats: :environment do
+    GenerateStatisticsJob.perform_now
+  end
 
   # Testing tasks
   desc "Test processing of MythTV log data"

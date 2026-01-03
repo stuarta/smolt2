@@ -17,3 +17,6 @@ production:
     class: CleanupSubmissionsJob
     args: [5000]
     schedule: every 2 minutes
+  generate_statistics:
+    class: GenerateStatisticsJob
+    schedule: every hour at minute 30

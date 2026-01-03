@@ -1,0 +1,14 @@
+  <tbody>
+    <% total = total_items(stats) %>
+    <% if total > 0 %>
+      <% stats.map do |stat_name, stat_value| %>
+      <tr>
+        <th><%= stat_name %></th>
+        <td><%= stat_value %></td>
+        <% stat_percentage = (stat_value.to_f / total.to_f * 100) %>
+        <td><%= stat_percentage.round(2) %>%</td>
+        <td><label><%= tag.progress value: stat_percentage.round, max: 100, class: "progress", role: "progressbar" %></label></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>

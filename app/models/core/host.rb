@@ -1,4 +1,5 @@
 class Core::Host < ApplicationRecord
+  include RecentConcern
   has_many    :device_links
   has_many    :devices, through: :device_links, dependent: :destroy
   has_many    :file_systems, class_name: "Core::Filesystem", dependent: :destroy
@@ -12,8 +13,4 @@ class Core::Host < ApplicationRecord
   belongs_to  :language
   belongs_to  :run_level
   belongs_to  :myth_host, class_name: "Myth::Host"
-
-  scope :recent, -> {
-    where("updated_at >= ?", Date.today - 90)
-  }
 end
