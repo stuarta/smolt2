@@ -1,0 +1,18 @@
+<div class="accordion">
+  <details name="my_accordion">
+    <summary><%= stat_name %> - <%=stat_value["count"] %> total hosts <%= stat_percentage.round(2) %>%</summary>
+    <table class="table">
+      <tbody>
+        <% stat_value["os_versions"].each do |os| %>
+          <tr>
+            <th><%= os[:name] %></th>
+            <td><%= os[:count] %></td>
+            <% os_stat_percentage = (os[:count].to_f / stat_value["count"].to_f * 100) %>
+            <td><%= os_stat_percentage.round(2) %>%</td>
+            <td><label><%= tag.progress value: os_stat_percentage.round, max: 100, class: "progress", role: "progressbar" %></label></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </details>
+</div>

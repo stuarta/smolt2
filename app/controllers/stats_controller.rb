@@ -23,7 +23,36 @@ class StatsController < ApplicationController
     Stat::OperatingSystem.all.order(:count).reverse_order.each do |os|
       @detailed_stats["os"][os.name] = os.count
     end
-
+    @detailed_stats["os_groups_total"] = Stat::OperatingSystem.sum(:count)
+    @detailed_stats["os_groups"] = {}
+    Stat::OsFamily.all.order(:count).reverse_order.each do |os_family|
+      @detailed_stats["os_groups"][os_family.name] = {}
+      if os_family.name == "Ubuntu"
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_ubuntu.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      elsif os_family.name == "Debian"
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_debian.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      elsif os_family.name == "Fedora"
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_fedora.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      elsif os_family.name == "LinuxMint"
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_linuxmint.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      elsif os_family.name == "LinHES"
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_linhes.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      elsif os_family.name == "OpenSUSE"
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_opensuse.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      elsif os_family.name == "Raspbian"
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_raspbian.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      else (os_family.name == "Other")
+        @detailed_stats["os_groups"][os_family.name]["count"] = os_family.count
+        @detailed_stats["os_groups"][os_family.name]["os_versions"] = Stat::OperatingSystem.find_other.order(:count).reverse_order.map { |o| { name: o.name, count: o.count } }
+      end
+    end
     # Runlevel
     @detailed_stats["runlevel"] = {}
     Stat::RunLevel.all.order(:count).reverse_order.each do |rl|

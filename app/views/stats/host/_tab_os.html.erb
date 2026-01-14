@@ -1,10 +1,4 @@
-<table class="table">
-  <thead>
-    <th>Operating Systems</th>
-    <th>Count</th>
-    <th>% of total</th>
-    <th></th>
-  </thead>
-  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["os"] }%>
-</table>
-<!-- TODO: switch this to detailed stats with accordions -->
+<% @detailed_stats["os_groups"].map do |stat_name, stat_value| %>
+  <% stat_percentage = (stat_value["count"].to_f / @detailed_stats["os_groups_total"].to_f * 100) %>
+  <%= render partial: "stats/host/os_groups", locals: { stat_name: stat_name, stat_value: stat_value, stat_percentage: stat_percentage }%>
+<% end %>

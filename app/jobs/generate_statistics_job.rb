@@ -100,6 +100,15 @@ class GenerateStatisticsJob < ApplicationJob
     @detailed_stats["os"].each do |os, count|
       Stat::OperatingSystem.create(name: os, count: count)
     end
+    Stat::OsFamily.delete_all
+    Stat::OsFamily.create(name: "Ubuntu", count: Stat::OperatingSystem.find_ubuntu.sum(:count))
+    Stat::OsFamily.create(name: "Debian", count: Stat::OperatingSystem.find_debian.sum(:count))
+    Stat::OsFamily.create(name: "Fedora", count: Stat::OperatingSystem.find_fedora.sum(:count))
+    Stat::OsFamily.create(name: "LinuxMint", count: Stat::OperatingSystem.find_linuxmint.sum(:count))
+    Stat::OsFamily.create(name: "LinHES", count: Stat::OperatingSystem.find_linhes.sum(:count))
+    Stat::OsFamily.create(name: "OpenSUSE", count: Stat::OperatingSystem.find_opensuse.sum(:count))
+    Stat::OsFamily.create(name: "Raspbian", count: Stat::OperatingSystem.find_raspbian.sum(:count))
+    Stat::OsFamily.create(name: "Other", count: Stat::OperatingSystem.find_other.sum(:count))
     Stat::RunLevel.delete_all
     @detailed_stats["runlevel"].each do |rl, count|
       Stat::RunLevel.create(name: rl, count: count)
