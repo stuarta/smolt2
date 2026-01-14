@@ -67,13 +67,13 @@ class StatsController < ApplicationController
 
     # Vendors
     @detailed_stats["vendor"] = {}
-    Stat::Vendor.all.order(:count).reverse_order.each do |vendor|
+    Stat::Vendor.all.order(:count).reverse_order.limit(50).each do |vendor|
       @detailed_stats["vendor"][vendor.name] = vendor.count
     end
 
     # Models
     @detailed_stats["model"] = {}
-    Stat::Model.all.order(:count).reverse_order.each do |model|
+    Stat::Model.all.order(:count).reverse_order.limit(50).each do |model|
       @detailed_stats["model"][model.name] = model.count
     end
 
@@ -98,7 +98,7 @@ class StatsController < ApplicationController
 
     # Kernel
     @detailed_stats["kernel"] = {}
-    Stat::Kernel.all.order(:count).reverse_order.each do |kernel|
+    Stat::Kernel.all.order(:count).reverse_order.limit(50).each do |kernel|
       @detailed_stats["kernel"][kernel.name] = kernel.count
     end
 
