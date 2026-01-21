@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_03_233717) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_21_171146) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "added", null: false
     t.timestamp "arrival", default: -> { "current_timestamp()" }
@@ -544,6 +544,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_03_233717) do
     t.bigint "count"
     t.datetime "created_at", null: false
     t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stat_memory_buckets", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.string "bucket_name"
+    t.bigint "count"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
