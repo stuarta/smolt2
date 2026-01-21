@@ -1,5 +1,6 @@
 class Core::Host < ApplicationRecord
   include RecentConcern
+  include MemoryBucketConcern
   has_many    :device_links
   has_many    :devices, through: :device_links, dependent: :destroy
   has_many    :file_systems, class_name: "Core::Filesystem", dependent: :destroy
