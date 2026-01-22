@@ -1,4 +1,5 @@
 class StatsController < ApplicationController
+  include StatsHelper
   def hosts
     # Summary stats
     @host_stats = {}
@@ -79,7 +80,9 @@ class StatsController < ApplicationController
 
     # RAM
     @detailed_stats["ram"] = {}
-    # Need to map to size buckets
+    Stat::MemoryBucket.all.each do |bucket|
+      @detailed_stats["ram"][pretty_memory_bucket_name(bucket.bucket_name)] = bucket.count
+    end
 
     # Swap
     @detailed_stats["swap"] = {}
