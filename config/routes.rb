@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   get "reports/search"
   get "stats/hosts"
   get "stats/devices"
+  get "stats/mythtv"
 end

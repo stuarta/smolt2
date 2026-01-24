@@ -116,4 +116,7 @@ class StatsController < ApplicationController
 
   def devices
   end
+
+  def mythtv
+  end
 end
