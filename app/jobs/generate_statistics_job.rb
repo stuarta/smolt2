@@ -104,6 +104,14 @@ class GenerateStatisticsJob < ApplicationJob
     end
     @detailed_stats["filesystems"]["size_map"] = {}
 
+    ## Devices
+    @device_stats = {}
+    # Device Classes
+    @device_stats["device_classes"] = {}
+    Core::DeviceClass.all.each do |dc|
+      @device_stats["device_classes"][dc.name] = dc.devices.count
+    end
+
     # update stats tables
     Rails.logger.info("Updating statistics tables")
     Stat::Architecture.delete_all
@@ -162,6 +170,12 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::Kernel.delete_all
     @detailed_stats["kernel"].each do |kernel, count|
       Stat::Kernel.create(name: kernel, count: count)
+    end
+
+    ## Devices
+    Stat::DeviceClass.delete_all
+    @device_stats["device_classes"].each do |name, count|
+      Stat::DeviceClass.create(name: name, count: count)
     end
   end
 end

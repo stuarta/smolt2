@@ -1,4 +1,7 @@
 <div>
-  <h1 class="font-bold text-4xl">Stats#devices</h1>
-  <p>Find me in app/views/stats/devices.html.erb</p>
+  <h1 class="font-bold text-4xl">Devices Summary</h1>
+  <%= render partial: "device_summary", locals: { device_stats: @device_stats } %>
+  <br>
+  <p>Device Stats</p>
+  <%= render partial: "device_details", locals: { device_stats: @device_stats } %>
 </div>

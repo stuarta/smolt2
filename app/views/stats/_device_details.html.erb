@@ -1,0 +1,16 @@
+<table class="table">
+  <caption>
+    Devices by Class
+  </caption>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Count</th>
+      <th>% of total</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+      <%= render partial: "simple_stats_rows", locals: { stats: @device_stats["device_classes"] } %>
+  </tbody>
+</table>

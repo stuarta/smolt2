@@ -117,6 +117,12 @@ class StatsController < ApplicationController
   end
 
   def devices
+    @device_stats = {}
+    @device_stats["unique"] = Core::Device.count
+    @device_stats["device_classes"] = {}
+    Stat::DeviceClass.all.order(:count).reverse_order.limit(10).each do |dc|
+      @device_stats["device_classes"][dc.name] = dc.count
+    end
   end
 
   def mythtv
