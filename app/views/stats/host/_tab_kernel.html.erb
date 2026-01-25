@@ -5,5 +5,5 @@
     <th>% of total</th>
     <th></th>
   </thead>
-  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["kernel"] }%>
+  <%= render partial: "simple_stats_rows", locals: { stats: @detailed_stats["kernel"] }%>
 </table>

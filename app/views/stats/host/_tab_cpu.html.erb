@@ -5,7 +5,7 @@
     <th>% of total</th>
     <th></th>
   </thead>
-  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["cpu"]["vendor"] }%>
+  <%= render partial: "simple_stats_rows", locals: { stats: @detailed_stats["cpu"]["vendor"] }%>
 </table>
 <br>
 <table class="table">
@@ -15,5 +15,5 @@
     <th>% of total</th>
     <th></th>
   </thead>
-  <%= render partial: "stats/host/simple_stats_rows", locals: { stats: @detailed_stats["cpu"]["num_cpus"] }%>
+  <%= render partial: "simple_stats_rows", locals: { stats: @detailed_stats["cpu"]["num_cpus"] }%>
 </table>
