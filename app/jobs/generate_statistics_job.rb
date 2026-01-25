@@ -60,7 +60,14 @@ class GenerateStatisticsJob < ApplicationJob
 
     # Swap
     @detailed_stats["swap"] = {}
-    # Need to map to size buckets
+    @detailed_stats["swap"]["0_to_2Gb"] = hosts_recent.swap_0_to_2Gb.count
+    @detailed_stats["swap"]["2_to_4Gb"] = hosts_recent.swap_2_to_4Gb.count
+    @detailed_stats["swap"]["4_to_8Gb"] = hosts_recent.swap_4_to_8Gb.count
+    @detailed_stats["swap"]["8_to_16Gb"] = hosts_recent.swap_8_to_16Gb.count
+    @detailed_stats["swap"]["16_to_32Gb"] = hosts_recent.swap_16_to_32Gb.count
+    @detailed_stats["swap"]["32_to_64Gb"] = hosts_recent.swap_32_to_64Gb.count
+    @detailed_stats["swap"]["64_to_128Gb"] = hosts_recent.swap_64_to_128Gb.count
+    @detailed_stats["swap"]["128Gb_plus"] = hosts_recent.swap_128Gb_plus.count
 
     # CPU
     @detailed_stats["cpu"] = {}
@@ -135,6 +142,10 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::MemoryBucket.delete_all
     @detailed_stats["ram"].each do |bucket_name, count|
       Stat::MemoryBucket.create(bucket_name: bucket_name, count: count)
+    end
+    Stat::SwapBucket.delete_all
+    @detailed_stats["swap"].each do |bucket_name, count|
+      Stat::SwapBucket.create(bucket_name: bucket_name, count: count)
     end
     Stat::CpuVendor.delete_all
     @detailed_stats["cpu"]["vendor"].each do |cpu_vendor, count|

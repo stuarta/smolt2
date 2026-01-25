@@ -86,7 +86,9 @@ class StatsController < ApplicationController
 
     # Swap
     @detailed_stats["swap"] = {}
-    # Need to map to size buckets
+    Stat::SwapBucket.all.each do |bucket|
+      @detailed_stats["swap"][pretty_memory_bucket_name(bucket.bucket_name)] = bucket.count
+    end
 
     # CPU
     @detailed_stats["cpu"] = {}
