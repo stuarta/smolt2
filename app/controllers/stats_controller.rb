@@ -120,8 +120,8 @@ class StatsController < ApplicationController
     @device_stats = {}
     @device_stats["unique"] = Core::Device.count
     @device_stats["device_classes"] = {}
-    Stat::DeviceClass.all.order(:count).reverse_order.limit(10).each do |dc|
-      @device_stats["device_classes"][dc.name] = dc.count
+    Stat::DeviceClass.all.order(:count).reverse_order.limit(25).each do |dc|
+      @device_stats["device_classes"][dc.name] = { id: Core::DeviceClass.find_by(name: dc.name).id, count: dc.count }
     end
   end
 

@@ -11,6 +11,6 @@
     </tr>
   </thead>
   <tbody>
-      <%= render partial: "simple_stats_rows", locals: { stats: @device_stats["device_classes"] } %>
+    <%= render partial: "device_class_rows", locals: { stats: @device_stats["device_classes"] } %>
   </tbody>
 </table>

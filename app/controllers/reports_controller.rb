@@ -38,6 +38,12 @@ class ReportsController < ApplicationController
   end
 
   def view_devices
+    @devices = {}
+    if params[:device_class_id]
+      @devices[:description] = Core::Device.where(device_class_id: params[:device_class_id]).map(&:description).uniq.sort
+    else
+      @devices = Core::Device.all
+    end
   end
 
   def search

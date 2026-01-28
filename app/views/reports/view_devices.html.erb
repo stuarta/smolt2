@@ -1,4 +1,18 @@
-<div>
-  <h1 class="font-bold text-4xl">Reports#view_devices</h1>
-  <p>Find me in app/views/reports/view_devices.html.erb</p>
-</div>
+<table class="table">
+  <caption>
+    Devices by Class
+  </caption>
+  <thead>
+    <tr>
+      <th>Device</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @devices[:description].each do |desc| %>
+    <tr>
+      <td><%= desc %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>

@@ -6,6 +6,13 @@ module StatsHelper
     end
     count
   end
+  def total_items_from_hash(item_hash)
+    count = 0
+    item_hash.each do |k, v|
+      count += v[:count]
+    end
+    count
+  end
   def pretty_memory_bucket_name(bucket_name)
     case bucket_name
     when "0_to_2Gb"

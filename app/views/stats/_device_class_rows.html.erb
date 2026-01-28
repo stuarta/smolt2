@@ -1,0 +1,14 @@
+  <tbody>
+    <% total = total_items_from_hash(stats) %>
+    <% if total > 0 %>
+      <% stats.map do |stat_name, stat_value| %>
+      <tr>
+        <th><%= link_to stat_name, reports_view_devices_path(device_class_id: stat_value[:id]) %></th>
+        <td><%= stat_value[:count] %></td>
+        <% stat_percentage = (stat_value[:count].to_f / total.to_f * 100) %>
+        <td><%= stat_percentage.round(2) %>%</td>
+        <td><label><%= tag.progress value: stat_percentage.round, max: 100, class: "progress", role: "progressbar" %></label></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
