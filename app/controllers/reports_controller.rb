@@ -42,7 +42,7 @@ class ReportsController < ApplicationController
     if params[:device_class_id]
       @devices[:description] = Core::Device.where(device_class_id: params[:device_class_id]).map(&:description).uniq.sort
     else
-      @devices = Core::Device.all
+      @devices[:description] = Core::Device.all.map(&:description).uniq.sort
     end
   end
 
