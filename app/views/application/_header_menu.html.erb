@@ -3,3 +3,18 @@
     <%= image_tag("mythtv.png") %>
   <% end %>
   <span class="font-bold">MythTV Hardware Profiles</span>
+</div>
+<% if current_user %>
+  <div>Welcome, <%= current_user[:name] || current_user[:nickname] %></div>
+<% end %>
+<div class="flex items-center gap">
+  <% if current_user %>
+    <%= button_to logout_path, class: "btn avatar", method: :delete, data: { turbo: false } do %>
+      <%= image_tag "log-out.svg", size: 48, alt: "Logout" %>
+    <% end %>
+  <% else %>
+    <%= button_to "/auth/openid_connect", class: "btn avatar", data: { turbo: false } do %>
+      <%= image_tag "log-in.svg", size: 48, alt: "Login" %>
+    <% end %>
+  <% end %>
+</div>

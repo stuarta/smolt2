@@ -69,3 +69,7 @@ group :test do
 end
 
 gem "css-zero", "~> 3.1"
+gem "omniauth"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth_openid_connect"
+

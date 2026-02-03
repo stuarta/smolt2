@@ -24,6 +24,17 @@
             <%= link_to "MythTV Stats", stats_mythtv_path, class: "btn sidebar-menu__button" %>
           </nav>
         </details>
+        <% if current_user && current_user[:groups].include?("Developers") %>
+          <details open>
+            <summary class="btn sidebar-menu__button">
+              <span class="icon icon--circle-small" aria-hidden="true"></span>
+              <span class="overflow-ellipsis">Admin</span>
+            </summary>
+            <nav class="sidebar-menu__sub">
+              <%= link_to "Jobs", mission_control_jobs_path, class: "btn sidebar-menu__button" %>
+            </nav>
+          </details>
+        <% end %>
       </div>
     </div>
     <div class="sidebar-menu__group">
