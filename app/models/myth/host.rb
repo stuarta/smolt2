@@ -1,4 +1,5 @@
 class Myth::Host < ApplicationRecord
+  include RecentConcern
   belongs_to  :uuid
 
   belongs_to  :branch

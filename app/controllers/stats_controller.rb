@@ -126,5 +126,9 @@ class StatsController < ApplicationController
   end
 
   def mythtv
+    @mythtv_stats = {}
+    @mythtv_stats["total"] = Myth::Host.recent.count
+    @mythtv_stats["active"] = Myth::Host.recent.pluck(:uuid_id).uniq.count
+    @mythtv_stats["tuners_total"] = Myth::Tuner.sum(:tuner_count)
   end
 end
