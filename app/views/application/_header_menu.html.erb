@@ -9,12 +9,22 @@
 <% end %>
 <div class="flex items-center gap">
   <% if current_user %>
-    <%= button_to logout_path, class: "btn avatar", method: :delete, data: { turbo: false } do %>
-      <%= image_tag "log-out.svg", size: 48, alt: "Logout" %>
-    <% end %>
+    <div contents data-controller="popover" data-action="mouseenter->popover#debouncedShow mouseleave->popover#debouncedHide">
+      <%= button_to logout_path, class: "btn avatar", method: :delete, data: { turbo: false, popover_target: "trigger" } do %>
+        <%= image_tag "log-out.svg", size: 48, alt: "Logout" %>
+      <% end %>
+      <div popover="hint" class="popover bg-black text-reversed text-xs pb-1 pi-2" data-popover-target="content" role="tooltip">
+        Logout
+      </div>
+    </div>
   <% else %>
-    <%= button_to "/auth/openid_connect", class: "btn avatar", data: { turbo: false } do %>
-      <%= image_tag "log-in.svg", size: 48, alt: "Login" %>
-    <% end %>
+    <div contents data-controller="popover" data-action="mouseenter->popover#debouncedShow mouseleave->popover#debouncedHide">
+      <%= button_to "/auth/openid_connect", class: "btn avatar", data: { turbo: false, popover_target: "trigger" } do %>
+        <%= image_tag "log-in.svg", size: 48, alt: "Login" %>
+      <% end %>
+      <div popover="hint" class="popover bg-black text-reversed text-xs pb-1 pi-2" data-popover-target="content" role="tooltip">
+        Login
+      </div>
+    </div>
   <% end %>
 </div>
