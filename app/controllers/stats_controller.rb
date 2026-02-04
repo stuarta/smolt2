@@ -130,5 +130,16 @@ class StatsController < ApplicationController
     @mythtv_stats["total"] = Myth::Host.recent.count
     @mythtv_stats["active"] = Myth::Host.recent.pluck(:uuid_id).uniq.count
     @mythtv_stats["tuners_total"] = Myth::Tuner.sum(:tuner_count)
+    @mythtv_stats["tuner_info"] = {}
+    @mythtv_stats["tuner_info"]["min"] = Myth::Tuner.recent.minimum(:tuner_count)
+    @mythtv_stats["tuner_info"]["max"] = Myth::Tuner.recent.maximum(:tuner_count)
+    @mythtv_stats["tuner_info"]["average"] = Myth::Tuner.recent.average(:tuner_count).to_f.round(2)
+    @mythtv_stats["tuner_info"]["stddev"] = Myth::Tuner.recent.select("STDDEV_SAMP(tuner_count) as stddev").take.stddev.round(2)
+    @mythtv_stats["vtuner_info"] = {}
+    @mythtv_stats["vtuner_info"]["min"] = Myth::Host.recent.minimum(:vtpertuner)
+    @mythtv_stats["vtuner_info"]["max"] = Myth::Host.recent.maximum(:vtpertuner)
+    @mythtv_stats["vtuner_info"]["average"] = Myth::Host.recent.average(:vtpertuner).to_f.round(2)
+    @mythtv_stats["vtuner_info"]["stddev"] = Myth::Host.recent.select("STDDEV_SAMP(vtpertuner) as stddev").take.stddev.round(2)
+    @mythtv_stats["tuner_breakdown"] = Myth::Tuner.recent.group(:name).count.sort_by { |k, v| -v }.to_h
   end
 end
