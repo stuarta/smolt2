@@ -16,6 +16,9 @@ application.register("flash", FlashController)
 import FormController from "./form_controller"
 application.register("form", FormController)
 
+import PopoverController from "./popover_controller"
+application.register("popover", PopoverController)
+
 import TabsController from "./tabs_controller"
 application.register("tabs", TabsController)
 
