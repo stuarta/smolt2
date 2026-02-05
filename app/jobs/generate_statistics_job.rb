@@ -7,44 +7,38 @@ class GenerateStatisticsJob < ApplicationJob
 
     # Platforms (archs)
     @detailed_stats["archs"] = {}
-    platform_recent = hosts_recent.map(&:platform_id).uniq
-    Core::Platform.find(platform_recent).each do |p|
-      @detailed_stats["archs"][p.platform] = hosts_recent.select { |h| h.platform_id == p.id }.count
+    hosts_recent.group(:platform_id).count.to_h.each do |platform_id, count|
+      @detailed_stats["archs"][Core::Platform.find(platform_id).platform] = count
     end
 
     # Operating systems
     @detailed_stats["os"] = {}
-    os_recent = hosts_recent.map(&:operating_system_id).uniq
-    Core::OperatingSystem.find(os_recent).each do |os|
-      @detailed_stats["os"][os.os] = hosts_recent.select { |h| h.operating_system_id == os.id }.count
+    hosts_recent.group(:operating_system_id).count.to_h.each do |os_id, count|
+      @detailed_stats["os"][Core::OperatingSystem.find(os_id).os] = count
     end
 
     # Runlevel
     @detailed_stats["runlevel"] = {}
-    runlevel_recent = hosts_recent.map(&:run_level_id).uniq
-    Core::RunLevel.find(runlevel_recent).each do |rl|
-      @detailed_stats["runlevel"][rl.default_runlevel] = hosts_recent.select { |h| h.run_level_id == rl.id }.count
+    hosts_recent.group(:run_level_id).count.to_h.each do |runlevel_id, count|
+      @detailed_stats["runlevel"][Core::RunLevel.find(runlevel_id).default_runlevel] = count
     end
 
     # Language
     @detailed_stats["language"] = {}
-    language_recent = hosts_recent.map(&:language_id).uniq
-    Core::Language.find(language_recent).each do |language|
-      @detailed_stats["language"][language.language] = hosts_recent.select { |h| h.language_id == language.id }.count
+    hosts_recent.group(:language_id).count.to_h.each do |language_id, count|
+      @detailed_stats["language"][Core::Language.find(language_id).language] = count
     end
 
     # Vendors
     @detailed_stats["vendor"] = {}
-    vendor_recent = hosts_recent.map(&:vendor_id).uniq
-    Core::Vendor.find(vendor_recent).each do |vendor|
-      @detailed_stats["vendor"][vendor.name] = hosts_recent.select { |h| h.vendor_id == vendor.id }.count
+    hosts_recent.group(:vendor_id).count.to_h.each do |vendor_id, count|
+      @detailed_stats["vendor"][Core::Vendor.find(vendor_id).name] = count
     end
 
     # Models
     @detailed_stats["model"] = {}
-    model_recent = hosts_recent.map(&:system).uniq
-    model_recent.each do |model|
-      @detailed_stats["model"][model] = hosts_recent.select { |h| h.system == model }.count
+    hosts_recent.group(:system).count.to_h.each do |model, count|
+      @detailed_stats["model"][model] = count
     end
 
     # RAM
@@ -72,44 +66,35 @@ class GenerateStatisticsJob < ApplicationJob
     # CPU
     @detailed_stats["cpu"] = {}
     @detailed_stats["cpu"]["vendor"] = {}
-    cpu_recent = hosts_recent.map(&:cpu_id).uniq
-    Core::Cpu.find(cpu_recent).each do |cpu|
-      @detailed_stats["cpu"]["vendor"][cpu.cpu_vendor] = hosts_recent.select { |h| h.cpu_id == cpu.id }.count
+    hosts_recent.group(:cpu_id).count.to_h.each do |cpu_id, count|
+      @detailed_stats["cpu"]["vendor"][Core::Cpu.find(cpu_id).cpu_vendor] = count
     end
     @detailed_stats["cpu"]["num_cpus"] = {}
-    num_cpus_recent = hosts_recent.map(&:num_cpus).uniq
-    num_cpus_recent.each do |num_cpus|
-      @detailed_stats["cpu"]["num_cpus"][num_cpus] = hosts_recent.select { |h| h.num_cpus == num_cpus }.count
+    hosts_recent.group(:num_cpus).count.to_h.each do |num_cpus, count|
+      @detailed_stats["cpu"]["num_cpus"][num_cpus] = count
     end
 
     # Kernel
     @detailed_stats["kernel"] = {}
-    kernel_recent = hosts_recent.map(&:kernel_version_id).uniq
-    Core::KernelVersion.find(kernel_recent).each do |kernel|
-      @detailed_stats["kernel"][kernel.kernel_version] = hosts_recent.select { |h| h.kernel_version_id == kernel.id }.count
+    hosts_recent.group(:kernel_version_id).count.to_h.each do |kernel_id, count|
+      @detailed_stats["kernel"][Core::KernelVersion.find(kernel_id).kernel_version] = count
     end
 
     # Filesystems
     @detailed_stats["filesystems"] = {}
     @detailed_stats["filesystems"]["fs_type"] = {}
-    filesystem_recent = Core::Filesystem.where("host_id in (?)", hosts_recent.map(&:id)).map(&:fs_type).uniq
-    filesystem_recent.each do |fs_type|
-      @detailed_stats["filesystems"]["fs_type"][fs_type] = 0
-    end
-    hosts_recent.each do |host|
-      filesystem_recent.each do |fs_type|
-        # for each host, and each recent fs_type count up the occurances
-        @detailed_stats["filesystems"]["fs_type"][fs_type] += host.file_systems.select { |fs| fs.fs_type == fs_type }.count
-      end
+    Core::Filesystem.recent.group(:fs_type).count.to_h.each do |fs_type, count|
+      @detailed_stats["filesystems"]["fs_type"][fs_type] = count
     end
     @detailed_stats["filesystems"]["size_map"] = {}
+    # TODO: Add size map stats
 
     ## Devices
     @device_stats = {}
     # Device Classes
     @device_stats["device_classes"] = {}
-    Core::DeviceClass.all.each do |dc|
-      @device_stats["device_classes"][dc.name] = dc.devices.count
+    Core::Device.group(:device_class_id).count.to_h.each do |device_class_id, count|
+      @device_stats["device_classes"][Core::DeviceClass.find(device_class_id).name] = count
     end
 
     # update stats tables
