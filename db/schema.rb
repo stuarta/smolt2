@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_25_003527) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_07_153229) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "added", null: false
     t.timestamp "arrival", default: -> { "current_timestamp()" }
@@ -79,6 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_25_003527) do
     t.bigint "f_files"
     t.bigint "f_frsize"
     t.bigint "f_fssize"
+    t.virtual "fs_size_mb", type: :bigint, as: "`f_blocks` * `f_bsize` / 1024 / 1024"
     t.string "fs_type"
     t.bigint "host_id", null: false
     t.string "mnt_pnt"
