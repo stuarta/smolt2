@@ -114,6 +114,9 @@ class StatsController < ApplicationController
       @detailed_stats["filesystems"]["fs_type"][fs_type.name] = fs_type.count
     end
     @detailed_stats["filesystems"]["size_map"] = {}
+    Stat::FilesystemSize.all.each do |fs_size|
+      @detailed_stats["filesystems"]["size_map"][pretty_fs_bucket_name(fs_size.bucket_name)] = fs_size.count
+    end
   end
 
   def devices

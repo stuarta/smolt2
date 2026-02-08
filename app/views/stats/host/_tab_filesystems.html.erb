@@ -1,9 +1,24 @@
 <table class="table">
   <thead>
-    <th>Filesystems Types</th>
+    <th>Filesystem Types</th>
     <th>Count</th>
     <th>% of total</th>
     <th></th>
   </thead>
+  <caption>
+    Filesystem Types
+  </caption>
   <%= render partial: "simple_stats_rows", locals: { stats: @detailed_stats["filesystems"]["fs_type"] }%>
+</table>
+<table class="table">
+  <thead>
+    <th>Filesystem Sizes</th>
+    <th>Count</th>
+    <th>% of total</th>
+    <th></th>
+  </thead>
+  <caption>
+    Filesystem Sizes
+  </caption>
+  <%= render partial: "simple_stats_rows", locals: { stats: @detailed_stats["filesystems"]["size_map"] }%>
 </table>

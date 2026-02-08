@@ -87,8 +87,16 @@ class GenerateStatisticsJob < ApplicationJob
       @detailed_stats["filesystems"]["fs_type"][fs_type] = count
     end
     @detailed_stats["filesystems"]["size_map"] = {}
-    # TODO: Add size map stats
-
+    @detailed_stats["filesystems"]["size_map"]["0_to_2Gb"] = Core::Filesystem.recent.filesystem_0_to_2Gb.count
+    @detailed_stats["filesystems"]["size_map"]["2Gb_to_100Gb"] = Core::Filesystem.recent.filesystem_2Gb_to_100Gb.count
+    @detailed_stats["filesystems"]["size_map"]["100Gb_to_200Gb"] = Core::Filesystem.recent.filesystem_100Gb_to_200Gb.count
+    @detailed_stats["filesystems"]["size_map"]["200Gb_to_400Gb"] = Core::Filesystem.recent.filesystem_200Gb_to_400Gb.count
+    @detailed_stats["filesystems"]["size_map"]["400Gb_to_700Gb"] = Core::Filesystem.recent.filesystem_400Gb_to_700Gb.count
+    @detailed_stats["filesystems"]["size_map"]["700Gb_to_1Tb"] = Core::Filesystem.recent.filesystem_700Gb_to_1Tb.count
+    @detailed_stats["filesystems"]["size_map"]["1Tb_to_2Tb"] = Core::Filesystem.recent.filesystem_1Tb_to_2Tb.count
+    @detailed_stats["filesystems"]["size_map"]["2Tb_to_4Tb"] = Core::Filesystem.recent.filesystem_2Tb_to_4Tb.count
+    @detailed_stats["filesystems"]["size_map"]["4Tb_to_8Tb"] = Core::Filesystem.recent.filesystem_4Tb_to_8Tb.count
+    @detailed_stats["filesystems"]["size_map"]["8Tb_plus"] = Core::Filesystem.recent.filesystem_8Tb_plus.count
     ## Devices
     @device_stats = {}
     # Device Classes
@@ -151,6 +159,10 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::FilesystemType.delete_all
     @detailed_stats["filesystems"]["fs_type"].each do |fs_type, count|
       Stat::FilesystemType.create(name: fs_type, count: count)
+    end
+    Stat::FilesystemSize.delete_all
+    @detailed_stats["filesystems"]["size_map"].each do |bucket_name, count|
+      Stat::FilesystemSize.create(bucket_name: bucket_name, count: count)
     end
     Stat::Kernel.delete_all
     @detailed_stats["kernel"].each do |kernel, count|
