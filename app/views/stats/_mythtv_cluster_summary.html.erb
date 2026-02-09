@@ -1,0 +1,12 @@
+<table class="table">
+  <caption>
+    Hosts per MythTV Cluster
+  </caption>
+  <thead>
+    <th>Numer of Hosts</th>
+    <th>Count</th>
+    <th>% of total</th>
+    <th></th>
+  </thead>
+  <%= render partial: "simple_stats_rows", locals: { stats: @mythtv_stats["clusters"] }%>
+</table>

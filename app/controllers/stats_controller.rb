@@ -133,6 +133,14 @@ class StatsController < ApplicationController
     @mythtv_stats["total"] = Myth::Host.recent.count
     @mythtv_stats["active"] = Myth::Host.recent.pluck(:uuid_id).uniq.count
     @mythtv_stats["tuners_total"] = Myth::Tuner.sum(:tuner_count)
+    @mythtv_stats["clusters"] = {}
+    Myth::Host.recent.group(:uuid_id).count.to_h.each do |k, v|
+      if @mythtv_stats["clusters"][v]
+        @mythtv_stats["clusters"][v] += 1
+      else
+        @mythtv_stats["clusters"][v] = 1
+      end
+    end
     @mythtv_stats["tuner_info"] = {}
     @mythtv_stats["tuner_info"]["min"] = Myth::Tuner.recent.minimum(:tuner_count)
     @mythtv_stats["tuner_info"]["max"] = Myth::Tuner.recent.maximum(:tuner_count)

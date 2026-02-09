@@ -2,6 +2,7 @@
   <h1 class="font-bold text-4xl">MythTV Stats</h1>
   <%= render partial: "mythtv_summary", locals: { mythtv_stats: @mythtv_stats } %>
   <br>
+  <%= render partial: "mythtv_cluster_summary", locals: { mythtv_stats: @mythtv_stats } %>
   <div class="accordion">
     <details name="tuner_info_accordion">
       <summary>Tuner Information</summary>
