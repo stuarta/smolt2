@@ -13,4 +13,10 @@
       </p>
     </details>
   </div>
+  <div class="accordion">
+    <details name="general_info_accordion">
+      <summary>General Information</summary>
+        <%= render partial: "mythtv_language_breakdown", locals: { mythtv_stats: @mythtv_stats } %>
+    </details>
+  </div>
 </div>

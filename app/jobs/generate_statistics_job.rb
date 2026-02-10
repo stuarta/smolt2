@@ -105,6 +105,12 @@ class GenerateStatisticsJob < ApplicationJob
       @device_stats["device_classes"][Core::DeviceClass.find(device_class_id).name] = count
     end
 
+    ### MythTV stats
+    @mythtv_stats = {}
+    # Languages
+    @mythtv_stats["language"] = {}
+    @mythtv_stats["language"] = Myth::Host.recent.group(:language_id).count.to_h
+
     # update stats tables
     Rails.logger.info("Updating statistics tables")
     Stat::Architecture.delete_all
@@ -173,6 +179,12 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::DeviceClass.delete_all
     @device_stats["device_classes"].each do |name, count|
       Stat::DeviceClass.create(name: name, count: count)
+    end
+
+    ### MythTV stats
+    Stat::MythLanguage.delete_all
+    @mythtv_stats["language"].each do |language_id, count|
+      Stat::MythLanguage.create(name: Myth::Language.find(language_id).language, count: count)
     end
   end
 end
