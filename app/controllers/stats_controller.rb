@@ -157,5 +157,21 @@ class StatsController < ApplicationController
     Stat::MythLanguage.all.order(:count).reverse_order.each do |language|
       @mythtv_stats["language"][language.name] = language.count
     end
+    @mythtv_stats["timezone"] = {}
+    Stat::MythTimezone.all.order(:count).reverse_order.limit(50).each do |timezone|
+      @mythtv_stats["timezone"][timezone.name] = timezone.count
+    end
+    @mythtv_stats["country"] = {}
+    Stat::MythCountry.all.order(:count).reverse_order.limit(50).each do |country|
+      @mythtv_stats["country"][country.name] = country.count
+    end
+    @mythtv_stats["theme"] = {}
+    Stat::MythTheme.all.order(:count).reverse_order.limit(50).each do |theme|
+      @mythtv_stats["theme"][theme.name] = theme.count
+    end
+    @mythtv_stats["remote"] = {}
+    Stat::MythRemote.all.order(:count).reverse_order.each do |remote|
+      @mythtv_stats["remote"][remote.name] = remote.count
+    end
   end
 end

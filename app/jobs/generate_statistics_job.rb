@@ -107,9 +107,20 @@ class GenerateStatisticsJob < ApplicationJob
 
     ### MythTV stats
     @mythtv_stats = {}
-    # Languages
+    # Version Stats
+    @mythtv_stats["version"] = {}
+
+    # General Stats
     @mythtv_stats["language"] = {}
     @mythtv_stats["language"] = Myth::Host.recent.group(:language_id).count.to_h
+    @mythtv_stats["timezone"] = {}
+    @mythtv_stats["timezone"] = Myth::Host.recent.group(:timezone_id).count.to_h
+    @mythtv_stats["country"] = {}
+    @mythtv_stats["country"] = Myth::Host.recent.group(:country_id).count.to_h
+    @mythtv_stats["theme"] = {}
+    @mythtv_stats["theme"] = Myth::Host.recent.group(:theme_id).count.to_h
+    @mythtv_stats["remote"] = {}
+    @mythtv_stats["remote"] = Myth::Host.recent.group(:remote_id).count.to_h
 
     # update stats tables
     Rails.logger.info("Updating statistics tables")
@@ -185,6 +196,22 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::MythLanguage.delete_all
     @mythtv_stats["language"].each do |language_id, count|
       Stat::MythLanguage.create(name: Myth::Language.find(language_id).language, count: count)
+    end
+    Stat::MythTimezone.delete_all
+    @mythtv_stats["timezone"].each do |timezone_id, count|
+      Stat::MythTimezone.create(name: Myth::Timezone.find(timezone_id).timezone, count: count)
+    end
+    Stat::MythCountry.delete_all
+    @mythtv_stats["country"].each do |country_id, count|
+      Stat::MythCountry.create(name: Myth::Country.find(country_id).country, count: count)
+    end
+    Stat::MythTheme.delete_all
+    @mythtv_stats["theme"].each do |theme_id, count|
+      Stat::MythTheme.create(name: Myth::Theme.find(theme_id).theme, count: count)
+    end
+    Stat::MythRemote.delete_all
+    @mythtv_stats["remote"].each do |remote_id, count|
+      Stat::MythRemote.create(name: Myth::Remote.find(remote_id).remote, count: count)
     end
   end
 end

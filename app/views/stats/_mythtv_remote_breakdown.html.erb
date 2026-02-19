@@ -1,18 +1,18 @@
 <div class="accordion">
-  <details name="language_breakdown_accordion">
-    <summary>Languages</summary>
+  <details name="remote_breakdown_accordion">
+    <summary>Remotes</summary>
     <p>
       <table class="table">
         <caption>
-          Languages
+          Remotes
         </caption>
         <thead>
-          <th>Language</th>
+          <th>Remote</th>
           <th>Count</th>
           <th>% of total</th>
           <th></th>
         </thead>
-        <%= render partial: "simple_stats_rows", locals: { stats: @mythtv_stats["language"] }%>
+        <%= render partial: "simple_stats_rows", locals: { stats: @mythtv_stats["remote"] }%>
       </table>
     </p>
   </details>

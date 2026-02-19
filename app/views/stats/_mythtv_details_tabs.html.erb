@@ -1,0 +1,44 @@
+<div class="tabs" data-controller="tabs">
+  <div class="tabs__list" data-action="keydown.left->tabs#prev keydown.right->tabs#next" role="tablist">
+    <button type="button" id="trigger_version" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_version" aria-selected="false">Versions</button>
+    <button type="button" id="trigger_cluster"  class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_cluster" aria-selected="true">Clusters</button>
+    <button type="button" id="trigger_tuners" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_tuners" aria-selected="false">Tuners</button>
+    <button type="button" id="trigger_general" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_general" aria-selected="false">General</button>
+    <button type="button" id="trigger_audio" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_audio" aria-selected="false">Audio</button>
+    <button type="button" id="trigger_schedule" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_schedule" aria-selected="false">Schedule</button>
+    <button type="button" id="trigger_historical" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_historical" aria-selected="false">Historical</button>
+    <button type="button" id="trigger_storage" class="btn tabs__button" data-tabs-target="button" data-action="tabs#select" role="tab" aria-controls="tab_storage" aria-selected="false">Storage</button>
+  </div>
+
+  <div hidden id="tab_version" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_version">
+    <%= render "stats/mythtv/tab_version" %>
+  </div>
+
+  <div id="tab_cluster" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_cluster">
+    <%= render "stats/mythtv/tab_cluster" %>
+  </div>
+
+  <div hidden id="tab_tuners" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_tuners">
+    <%= render "stats/mythtv/tab_tuners" %>
+  </div>
+
+  <div hidden id="tab_general" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_general">
+    <%= render "stats/mythtv/tab_general" %>
+  </div>
+
+  <div hidden id="tab_audio" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_audio">
+    <%= render "stats/mythtv/tab_audio" %>
+  </div>
+
+  <div hidden id="tab_schedule" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_schedule">
+    <%= render "stats/mythtv/tab_schedule" %>
+  </div>
+
+  <div hidden id="tab_historical" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_historical">
+    <%= render "stats/mythtv/tab_historical" %>
+  </div>
+
+  <div hidden id="tab_storage" data-tabs-target="tab" role="tabpanel" aria-labelledby="trigger_storage">
+    <%= render "stats/mythtv/tab_storage" %>
+  </div>
+</div>

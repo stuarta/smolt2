@@ -2,21 +2,6 @@
   <h1 class="font-bold text-4xl">MythTV Stats</h1>
   <%= render partial: "mythtv_summary", locals: { mythtv_stats: @mythtv_stats } %>
   <br>
-  <%= render partial: "mythtv_cluster_summary", locals: { mythtv_stats: @mythtv_stats } %>
-  <div class="accordion">
-    <details name="tuner_info_accordion">
-      <summary>Tuner Information</summary>
-        <%= render partial: "mythtv_tuners_per_cluster", locals: { mythtv_stats: @mythtv_stats } %>
-        <%= render partial: "mythtv_vtuners_per_cluster", locals: { mythtv_stats: @mythtv_stats } %>
-      <p>
-        <%= render partial: "mythtv_tuner_breakdown", locals: { mythtv_stats: @mythtv_stats } %>
-      </p>
-    </details>
-  </div>
-  <div class="accordion">
-    <details name="general_info_accordion">
-      <summary>General Information</summary>
-        <%= render partial: "mythtv_language_breakdown", locals: { mythtv_stats: @mythtv_stats } %>
-    </details>
-  </div>
+  <p>MythTV Stats</p>
+  <%= render partial: "mythtv_details_tabs", locals: { mythtv_stats: @mythtv_stats } %>
 </div>
