@@ -109,6 +109,15 @@ class GenerateStatisticsJob < ApplicationJob
     @mythtv_stats = {}
     # Version Stats
     @mythtv_stats["version"] = {}
+    @mythtv_stats["version"]["Detached"] = 0
+    Myth::Host.recent.group(:version_bucket_id).count.each do |bucket_id, count|
+      bucket_name = Myth::VersionBucket.find(bucket_id).version_bucket
+      if bucket_name.start_with?("v") || bucket_name == "Unknown"
+        @mythtv_stats["version"][bucket_name] = count
+      else
+        @mythtv_stats["version"]["Detached"] += count
+      end
+    end
 
     # General Stats
     @mythtv_stats["language"] = {}
@@ -212,6 +221,10 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::MythRemote.delete_all
     @mythtv_stats["remote"].each do |remote_id, count|
       Stat::MythRemote.create(name: Myth::Remote.find(remote_id).remote, count: count)
+    end
+    Stat::MythVersion.delete_all
+    @mythtv_stats["version"].each do |version_bucket, count|
+      Stat::MythVersion.create(bucket_name: version_bucket, count: count)
     end
   end
 end

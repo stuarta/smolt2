@@ -153,6 +153,13 @@ class StatsController < ApplicationController
     @mythtv_stats["vtuner_info"]["stddev"] = Myth::Host.recent.select("STDDEV_SAMP(vtpertuner) as stddev").take.stddev.round(2)
     @mythtv_stats["tuner_breakdown"] = Myth::Tuner.recent.group(:name).count.sort_by { |k, v| -v }.to_h
 
+    # MythTV Version Stats
+    @mythtv_stats["version"] = {}
+    Stat::MythVersion.all.order(:count).reverse_order.each do |version|
+      @mythtv_stats["version"][version.bucket_name] = version.count
+    end
+
+    # MythTV General Stats
     @mythtv_stats["language"] = {}
     Stat::MythLanguage.all.order(:count).reverse_order.each do |language|
       @mythtv_stats["language"][language.name] = language.count
