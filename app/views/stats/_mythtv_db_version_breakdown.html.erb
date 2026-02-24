@@ -1,0 +1,19 @@
+<div class="accordion">
+  <details name="db_version_breakdown_accordion">
+    <summary>MythTV DB Versions</summary>
+    <p>
+      <table class="table">
+        <caption>
+          DB Versions
+        </caption>
+        <thead>
+          <th>DB Version</th>
+          <th>Count</th>
+          <th>% of total</th>
+          <th></th>
+        </thead>
+        <%= render partial: "simple_stats_rows", locals: { stats: @mythtv_stats["db_version"] }%>
+      </table>
+    </p>
+  </details>
+</div>

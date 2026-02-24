@@ -1,4 +1,6 @@
 class Myth::Database < ApplicationRecord
+  include RecentConcern
+
   belongs_to              :host
   belongs_to              :db_version
   belongs_to              :used_engine, class_name: "Myth::DbEngine"
