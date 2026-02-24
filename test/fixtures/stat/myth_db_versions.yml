@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "5.5"
+  count: 10
+
+two:
+  name: "10.1"
+  count: 50
