@@ -195,5 +195,8 @@ class StatsController < ApplicationController
 
     # MythTV Audio Stats
     @mythtv_stats["audio"] = Myth::Audio.recent.group(:audio_sys).count.sort_by { |k, v| -v }.to_h
+
+    # MythTV Guide Source Stats
+    @mythtv_stats["sourcecount"] = Myth::Host.recent.group(:sourcecount).count.sort_by { |k, v| -v }.to_h
   end
 end
