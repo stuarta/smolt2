@@ -131,6 +131,16 @@ class GenerateStatisticsJob < ApplicationJob
     Myth::Host.recent.group(:qt_version_id).count.to_h.each do |qt_version_id, count|
       @mythtv_stats["qt_version"][Myth::QtVersion.find(qt_version_id).qt_version] = count
     end
+    @mythtv_stats["branch"] = {}
+    @mythtv_stats["branch"]["Detached"] = 0
+    Myth::Host.recent.group(:branch_id).count.to_h.each do |branch_id, count|
+      branch = Myth::Branch.find(branch_id).branch
+      if branch == "" or branch.include?("detached")
+        @mythtv_stats["branch"]["Detached"] += count
+      else
+        @mythtv_stats["branch"][branch] = count
+      end
+    end
 
     # General Stats
     @mythtv_stats["language"] = {}
@@ -247,6 +257,10 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::MythQtVersion.delete_all
     @mythtv_stats["qt_version"].each do |qt_version, count|
       Stat::MythQtVersion.create(name: qt_version, count: count)
+    end
+    Stat::MythBranch.delete_all
+    @mythtv_stats["branch"].each do |branch, count|
+      Stat::MythBranch.create(name: branch, count: count)
     end
   end
 end

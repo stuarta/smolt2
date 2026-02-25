@@ -166,6 +166,10 @@ class StatsController < ApplicationController
     Stat::MythQtVersion.all.order(:count).reverse_order.each do |qt_version|
       @mythtv_stats["qt_version"][qt_version.name] = qt_version.count
     end
+    @mythtv_stats["branch"] = {}
+    Stat::MythBranch.all.order(:count).reverse_order.each do |branch|
+      @mythtv_stats["branch"][branch.name] = branch.count
+    end
 
     # MythTV General Stats
     @mythtv_stats["language"] = {}
