@@ -1,0 +1,19 @@
+<div class="accordion">
+  <details name="audio_breakdown_accordion">
+    <summary>MythTV Audio</summary>
+    <p>
+      <table class="table">
+        <caption>
+          Audio
+        </caption>
+        <thead>
+          <th>Version</th>
+          <th>Count</th>
+          <th>% of total</th>
+          <th></th>
+        </thead>
+        <%= render partial: "simple_stats_rows", locals: { stats: @mythtv_stats["audio"] }%>
+      </table>
+    </p>
+  </details>
+</div>

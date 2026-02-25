@@ -192,5 +192,8 @@ class StatsController < ApplicationController
     Stat::MythRemote.all.order(:count).reverse_order.each do |remote|
       @mythtv_stats["remote"][remote.name] = remote.count
     end
+
+    # MythTV Audio Stats
+    @mythtv_stats["audio"] = Myth::Audio.recent.group(:audio_sys).count.sort_by { |k, v| -v }.to_h
   end
 end
