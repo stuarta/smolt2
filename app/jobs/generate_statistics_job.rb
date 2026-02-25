@@ -120,7 +120,7 @@ class GenerateStatisticsJob < ApplicationJob
     end
     @mythtv_stats["db_version"] = {}
     Myth::Database.recent.group(:db_version_id).count.to_h.each do |db_version_id, count|
-    short_version = Myth::DbVersion.find(db_version_id).short_version
+      short_version = Myth::DbVersion.find(db_version_id).short_version
       if @mythtv_stats["db_version"].key?(short_version)
         @mythtv_stats["db_version"][short_version] += count
       else
