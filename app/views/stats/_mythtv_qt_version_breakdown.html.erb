@@ -1,0 +1,19 @@
+<div class="accordion">
+  <details name="qt_version_breakdown_accordion">
+    <summary>MythTV Qt Versions</summary>
+    <p>
+      <table class="table">
+        <caption>
+          Qt Versions
+        </caption>
+        <thead>
+          <th>Qt Version</th>
+          <th>Count</th>
+          <th>% of total</th>
+          <th></th>
+        </thead>
+        <%= render partial: "simple_stats_rows", locals: { stats: @mythtv_stats["qt_version"] }%>
+      </table>
+    </p>
+  </details>
+</div>

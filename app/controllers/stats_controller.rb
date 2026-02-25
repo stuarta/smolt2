@@ -162,6 +162,10 @@ class StatsController < ApplicationController
     Stat::MythDbVersion.all.order(:count).reverse_order.each do |db_version|
       @mythtv_stats["db_version"][db_version.name] = db_version.count
     end
+    @mythtv_stats["qt_version"] = {}
+    Stat::MythQtVersion.all.order(:count).reverse_order.each do |qt_version|
+      @mythtv_stats["qt_version"][qt_version.name] = qt_version.count
+    end
 
     # MythTV General Stats
     @mythtv_stats["language"] = {}

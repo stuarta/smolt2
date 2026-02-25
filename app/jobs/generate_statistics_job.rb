@@ -127,6 +127,10 @@ class GenerateStatisticsJob < ApplicationJob
         @mythtv_stats["db_version"][short_version] = count
       end
     end
+    @mythtv_stats["qt_version"] = {}
+    Myth::Host.recent.group(:qt_version_id).count.to_h.each do |qt_version_id, count|
+      @mythtv_stats["qt_version"][Myth::QtVersion.find(qt_version_id).qt_version] = count
+    end
 
     # General Stats
     @mythtv_stats["language"] = {}
@@ -239,6 +243,10 @@ class GenerateStatisticsJob < ApplicationJob
     Stat::MythDbVersion.delete_all
     @mythtv_stats["db_version"].each do |db_version, count|
       Stat::MythDbVersion.create(name: db_version, count: count)
+    end
+    Stat::MythQtVersion.delete_all
+    @mythtv_stats["qt_version"].each do |qt_version, count|
+      Stat::MythQtVersion.create(name: qt_version, count: count)
     end
   end
 end
