@@ -198,5 +198,9 @@ class StatsController < ApplicationController
 
     # MythTV Guide Source Stats
     @mythtv_stats["sourcecount"] = Myth::Host.recent.group(:sourcecount).count.sort_by { |k, v| -v }.to_h
+    @mythtv_stats["grabber"] = {}
+    Myth::GrabbersHost.recent.group(:grabber_id).count.sort_by { |k, v| -v }.to_h.each do |grabber_id, count|
+      @mythtv_stats["grabber"][Myth::Grabber.find(grabber_id).grabber] = count
+    end
   end
 end
