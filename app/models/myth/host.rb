@@ -15,7 +15,8 @@ class Myth::Host < ApplicationRecord
   belongs_to  :version
   belongs_to  :version_bucket
 
-  has_and_belongs_to_many :grabbers
+  has_many :grabbers_host
+  has_many :grabbers, through: :grabbers_host
 
   has_many :recordings, dependent: :destroy
   has_many :storages, dependent: :destroy

@@ -1,3 +1,4 @@
 class Myth::Grabber < ApplicationRecord
-  has_and_belongs_to_many :hosts
+  has_many :grabbers_host
+  has_many :hosts, through: :grabbers_host
 end

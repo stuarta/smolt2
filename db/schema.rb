@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_25_174728) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_26_173000) do
   create_table "batch_queue", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
     t.integer "added", null: false
     t.timestamp "arrival", default: -> { "current_timestamp()" }
@@ -312,9 +312,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_25_174728) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "myth_grabbers_hosts", id: false, charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+  create_table "myth_grabbers_hosts", charset: "utf8mb3", collation: "utf8mb3_general_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.bigint "grabber_id"
     t.bigint "host_id"
+    t.datetime "updated_at", null: false
     t.index ["grabber_id"], name: "index_myth_grabbers_hosts_on_grabber_id"
     t.index ["host_id"], name: "index_myth_grabbers_hosts_on_host_id"
   end
