@@ -1,0 +1,54 @@
+<div class="accordion">
+  <details name="channels_and_shows_scheduled_accordion">
+    <summary>Channel and Shows Scheduled</summary>
+    <p>
+      <table class="table">
+        <caption>
+          Channel Count
+        </caption>
+        <tbody>
+          <tr>
+            <th>Channel Count Minimum</th>
+            <td><%= mythtv_stats["channelcount"]["min"] %></td>
+          </tr>
+          <tr>
+            <th>Channel Count Maximum</th>
+            <td><%= mythtv_stats["channelcount"]["max"] %></td>
+          </tr>
+          <tr>
+            <th>Channel Count Average</th>
+            <td><%= mythtv_stats["channelcount"]["average"] %></td>
+          </tr>
+          <tr>
+            <th>Channel Count Standard Deviation</th>
+            <td><%= mythtv_stats["channelcount"]["stddev"] %></td>
+          </tr>
+        </tbody>
+      </table>
+    <br>
+      <table class="table">
+        <caption>
+          Items Scheduled
+        </caption>
+        <tbody>
+          <tr>
+            <th>Scheduled Episodes Minimum</th>
+            <td><%= mythtv_stats["scheduled"]["min"] %></td>
+          </tr>
+          <tr>
+            <th>Scheduled Episodes Maximum</th>
+            <td><%= mythtv_stats["scheduled"]["max"] %></td>
+          </tr>
+          <tr>
+            <th>Scheduled Episodes Average</th>
+            <td><%= mythtv_stats["scheduled"]["average"] %></td>
+          </tr>
+          <tr>
+            <th>Scheduled Episodes Standard Deviation</th>
+            <td><%= mythtv_stats["scheduled"]["stddev"] %></td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+  </details>
+</div>

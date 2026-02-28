@@ -196,11 +196,21 @@ class StatsController < ApplicationController
     # MythTV Audio Stats
     @mythtv_stats["audio"] = Myth::Audio.recent.group(:audio_sys).count.sort_by { |k, v| -v }.to_h
 
-    # MythTV Guide Source Stats
+    # MythTV Schedule Stats
     @mythtv_stats["sourcecount"] = Myth::Host.recent.group(:sourcecount).count.sort_by { |k, v| -v }.to_h
     @mythtv_stats["grabber"] = {}
     Myth::GrabbersHost.recent.group(:grabber_id).count.sort_by { |k, v| -v }.to_h.each do |grabber_id, count|
       @mythtv_stats["grabber"][Myth::Grabber.find(grabber_id).grabber] = count
     end
+    @mythtv_stats["channelcount"] = {}
+    @mythtv_stats["channelcount"]["min"] = Myth::Host.recent.minimum(:channelcount)
+    @mythtv_stats["channelcount"]["max"] = Myth::Host.recent.maximum(:channelcount)
+    @mythtv_stats["channelcount"]["average"] = Myth::Host.recent.average(:channelcount).to_f.round(2)
+    @mythtv_stats["channelcount"]["stddev"] = Myth::Host.recent.select("STDDEV_SAMP(channelcount) as stddev").take.stddev.round(2)
+    @mythtv_stats["scheduled"] = {}
+    @mythtv_stats["scheduled"]["min"] = Myth::Scheduler.recent.minimum(:count)
+    @mythtv_stats["scheduled"]["max"] = Myth::Scheduler.recent.maximum(:count)
+    @mythtv_stats["scheduled"]["average"] = Myth::Scheduler.recent.average(:count).to_f.round(2)
+    @mythtv_stats["scheduled"]["stddev"] = Myth::Scheduler.recent.select("STDDEV_SAMP(count) as stddev").take.stddev.round(2)
   end
 end
