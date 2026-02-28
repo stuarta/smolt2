@@ -1,0 +1,102 @@
+<div class="accordion">
+  <details name="storage_breakdown_accordion">
+    <summary>Storage Stats</summary>
+    <p>
+      <table class="table">
+        <caption>
+          Total Available Recording Storage
+        </caption>
+        <tbody>
+          <tr>
+            <th>Recorded Storage Minimum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["rectotal"]["min"]) %></td>
+          </tr>
+          <tr>
+            <th>Recorded Storage Maximum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["rectotal"]["max"]) %></td>
+          </tr>
+          <tr>
+            <th>Recorded Storage Average</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["rectotal"]["average"]) %></td>
+          </tr>
+          <tr>
+            <th>Recorded Storage Standard Deviation</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["rectotal"]["stddev"]) %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="table">
+        <caption>
+          Free Space Recording Storage
+        </caption>
+        <tbody>
+          <tr>
+            <th>Free Space Storage Minimum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["recfree"]["min"]) %></td>
+          </tr>
+          <tr>
+            <th>Free Space Storage Maximum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["recfree"]["max"]) %></td>
+          </tr>
+          <tr>
+            <th>Free Space Storage Average</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["recfree"]["average"]) %></td>
+          </tr>
+          <tr>
+            <th>Free Space Storage Standard Deviation</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["recfree"]["stddev"]) %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="table">
+        <caption>
+          Total Available Video Storage
+        </caption>
+        <tbody>
+          <tr>
+            <th>Video Storage Minimum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videototal"]["min"]) %></td>
+          </tr>
+          <tr>
+            <th>Video Storage Maximum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videototal"]["max"]) %></td>
+          </tr>
+          <tr>
+            <th>Video Storage Average</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videototal"]["average"]) %></td>
+          </tr>
+          <tr>
+            <th>Video Storage Standard Deviation</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videototal"]["stddev"]) %></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="table">
+        <caption>
+          Free Available Video Storage
+        </caption>
+        <tbody>
+          <tr>
+            <th>Video Free Minimum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videofree"]["min"]) %></td>
+          </tr>
+          <tr>
+            <th>Video Free Maximum</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videofree"]["max"]) %></td>
+          </tr>
+          <tr>
+            <th>Video Free Average</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videofree"]["average"]) %></td>
+          </tr>
+          <tr>
+            <th>Video Free Standard Deviation</th>
+            <td><%= number_to_human_size(mythtv_stats["storage"]["videofree"]["stddev"]) %></td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+  </details>
+</div>

@@ -212,5 +212,28 @@ class StatsController < ApplicationController
     @mythtv_stats["scheduled"]["max"] = Myth::Scheduler.recent.maximum(:count)
     @mythtv_stats["scheduled"]["average"] = Myth::Scheduler.recent.average(:count).to_f.round(2)
     @mythtv_stats["scheduled"]["stddev"] = Myth::Scheduler.recent.select("STDDEV_SAMP(count) as stddev").take.stddev.round(2)
+
+    # MythTV Storage Stats
+    @mythtv_stats["storage"] = {}
+    @mythtv_stats["storage"]["rectotal"] = {}
+    @mythtv_stats["storage"]["rectotal"]["min"] = Myth::Storage.recent.rectotal.nonzero.minimum(:size)
+    @mythtv_stats["storage"]["rectotal"]["max"] = Myth::Storage.recent.rectotal.maximum(:size)
+    @mythtv_stats["storage"]["rectotal"]["average"] = Myth::Storage.recent.rectotal.average(:size).to_f.round(2)
+    @mythtv_stats["storage"]["rectotal"]["stddev"] = Myth::Storage.recent.rectotal.select("STDDEV_SAMP(size) as stddev").take.stddev.round(2)
+    @mythtv_stats["storage"]["recfree"] = {}
+    @mythtv_stats["storage"]["recfree"]["min"] = Myth::Storage.recent.recfree.nonzero.minimum(:size)
+    @mythtv_stats["storage"]["recfree"]["max"] = Myth::Storage.recent.recfree.maximum(:size)
+    @mythtv_stats["storage"]["recfree"]["average"] = Myth::Storage.recent.recfree.average(:size).to_f.round(2)
+    @mythtv_stats["storage"]["recfree"]["stddev"] = Myth::Storage.recent.recfree.select("STDDEV_SAMP(size) as stddev").take.stddev.round(2)
+    @mythtv_stats["storage"]["videototal"] = {}
+    @mythtv_stats["storage"]["videototal"]["min"] = Myth::Storage.recent.videototal.nonzero.minimum(:size)
+    @mythtv_stats["storage"]["videototal"]["max"] = Myth::Storage.recent.videototal.maximum(:size)
+    @mythtv_stats["storage"]["videototal"]["average"] = Myth::Storage.recent.videototal.average(:size).to_f.round(2)
+    @mythtv_stats["storage"]["videototal"]["stddev"] = Myth::Storage.recent.videototal.select("STDDEV_SAMP(size) as stddev").take.stddev.round(2)
+    @mythtv_stats["storage"]["videofree"] = {}
+    @mythtv_stats["storage"]["videofree"]["min"] = Myth::Storage.recent.videofree.nonzero.minimum(:size)
+    @mythtv_stats["storage"]["videofree"]["max"] = Myth::Storage.recent.videofree.maximum(:size)
+    @mythtv_stats["storage"]["videofree"]["average"] = Myth::Storage.recent.videofree.average(:size).to_f.round(2)
+    @mythtv_stats["storage"]["videofree"]["stddev"] = Myth::Storage.recent.videofree.select("STDDEV_SAMP(size) as stddev").take.stddev.round(2)
   end
 end
