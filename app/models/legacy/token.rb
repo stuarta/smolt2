@@ -3,7 +3,7 @@ class Legacy::Token
   def generate_token(uuid)
     t=Time.now.strftime("%s")
     str = t + "\n" + uuid
-    cipher_text = python_xor(Rails.application.credentials.legacy[:CRYPTOPASS], str)
+    cipher_text = python_xor(Rails.application.credentials.token_base, str)
     cipher_text
   end
   def valid?(uuid, token)
