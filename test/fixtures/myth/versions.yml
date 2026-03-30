@@ -1,7 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  version: MyString
+  id: 1
+  version: "v31.0+fixes.202203040618.7e4ce1ba98~ubuntu20.04.1"
 
 two:
-  version: MyString
+  id: 2
+  version: "v36-Pre-492-gefe751de78"
+
+three:
+  id: 3
+  version: "v36.0~master.202508230548.20c2b86196~ubuntu25.04.1"
