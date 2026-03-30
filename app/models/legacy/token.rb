@@ -7,7 +7,7 @@ class Legacy::Token
     cipher_text
   end
   def valid?(uuid, token)
-    plain_text = python_xor(Rails.application.credentials.legacy[:CRYPTOPASS], CGI.unescape(token))
+    plain_text = python_xor(Rails.application.credentials.token_base, CGI.unescape(token))
     str = plain_text.split("\n")
     t_delta = Time.now.strftime("%s").to_i - str[0].to_i
     if str[1] == uuid and t_delta < 60 and t_delta >= 0
@@ -17,7 +17,7 @@ class Legacy::Token
   end
   def generate_admin_token(uuid)
     str = uuid[0, 7]
-    admin_token = python_xor(Rails.application.credentials.legacy[:CRYPTOPASS], str)
+    admin_token = python_xor(Rails.application.credentials.token_base, str)
     admin_token
   end
 end
