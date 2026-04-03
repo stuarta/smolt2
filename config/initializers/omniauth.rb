@@ -1,7 +1,8 @@
 keycloak = Rails.application.credentials.keycloak
 if keycloak.nil?
-  keycloak[:client_id] = ENV["KEYCLOAK_CLIENT_ID"]
-  keycloak[:client_secret] = ENV["KEYCLOAK_CLIENT_SECRET"]
+  keycloak = {}
+  keycloak[:client_id] = ENV["KEYCLOAK_CLIENT_ID"] || "smolt2"
+  keycloak[:client_secret] = ENV["KEYCLOAK_CLIENT_SECRET"] || "CHANGE_ME"
   keycloak[:host] = ENV["KEYCLOAK_HOST"] || "https://sso.mythtv.org"
   keycloak[:realm] = ENV["KEYCLOAK_REALM"] || "MythTV"
   keycloak[:redirect_uri] = ENV["KEYCLOAK_REDIRECT_URI"] || "https://smolt.mythtv.org/auth/openid_connect/callback"
