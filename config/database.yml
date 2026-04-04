@@ -52,21 +52,21 @@ test:
 production:
   primary:
     <<: *default
-    database: smolt2
-    username: root
-    password:
-    socket: /var/lib/mysql/mysql.sock
+    database: <%= ENV['SMOLT2_PROD_DB_NAME'] %>
+    username: <%= ENV['SMOLT2_PROD_DB_USER'] %>
+    password: <%= ENV['SMOLT2_PROD_DB_PASSWORD'] %>
+    host:     <%= ENV['SMOLT2_PROD_DB_HOST'] %>
   legacy:
     <<: *default
-    database: smoon2
-    username: smoon2_ro
-    password:
-    socket: /var/lib/mysql/mysql.sock
+    database: <%= ENV['SMOLT2_PROD_LEGACY_DB_NAME'] %>
+    username: <%= ENV['SMOLT2_PROD_LEGACY_DB_USER_RO'] %>
+    password: <%= ENV['SMOLT2_PROD_LEGACY_DB_PASSWORD_RO'] %>
+    host:     <%= ENV['SMOLT2_PROD_LEGACY_DB_HOST'] %>
     database_tasks: false
   queue:
     <<: *default
-    database: smolt2_prod_queue
-    username: root
-    password:
-    socket: /var/lib/mysql/mysql.sock
+    database: <%= ENV['SMOLT2_PROD_QUEUE_DB_NAME'] %>
+    username: <%= ENV['SMOLT2_PROD_QUEUE_DB_USER'] %>
+    password: <%= ENV['SMOLT2_PROD_QUEUE_DB_PASSWORD'] %>
+    host:     <%= ENV['SMOLT2_PROD_QUEUE_DB_HOST'] %>
     migrations_paths: db/queue_migrate
